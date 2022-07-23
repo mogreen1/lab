@@ -10,5 +10,5 @@
       
     - name: Task 2
       debug:
-        msg: My {{ my var }}
+        msg: My {{ myvar }}
         
