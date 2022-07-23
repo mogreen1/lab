@@ -1,0 +1,12 @@
+- name: Play Local Host
+  hosts: localhost
+  become: true
+  tasks:
+
+    - name: Who knows what
+      ping:
+      register: myvar
+
+    - name: Print stuff
+      debug:
+        msg: Hi {{ myvar }}
