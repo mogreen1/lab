@@ -1,0 +1,14 @@
+---
+- name: First Play
+  hosts: servera
+  tasks:
+    
+    - name: Task 1
+      ping:
+      register: myvar
+      
+      
+    - name: Task 2
+      debug:
+        msg: My {{ my var }}
+        
