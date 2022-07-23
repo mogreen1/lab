@@ -4,11 +4,5 @@
   tasks:
 
   - name: run show version on remote devices
-    cisco.ios.ios_command:
-      commands: show ip route
-    register: mdgroutevar
-
-  - name: Capture Contents in File
-    copy:
-      content: "{{ mdgroutevar | to_nice_yaml }}"
-      dest: "{{ playbook_dir }}/Brief35.yml"
+    ping:
+    
