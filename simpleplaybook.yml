@@ -4,11 +4,9 @@
   tasks:
     
     - name: Task 1
-      ping:
+      setup:
       register: myvar
-      
-      
-    - name: Task 2
+
+    - name:
       debug:
-        msg: My {{ myvar }}
-        
+        msg: Hi {{ myvar }}
