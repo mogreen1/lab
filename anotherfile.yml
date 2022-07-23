@@ -1,6 +1,7 @@
 ---
 - name: Play 1
   hosts: rtr1
+  gather_facts: false
   tasks:
 
   - name: run show version on remote devices
