@@ -1,2 +1,8 @@
 ---
 - name: Playbook Test
+  hosts: rtr1
+  tasks:
+    - name: Display mesage
+      debug:
+        msg: Test message
+        
