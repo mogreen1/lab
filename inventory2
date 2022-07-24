@@ -15,7 +15,7 @@ children:
   cisco:
     rtr1:
       ansible_host: 10.0.5.55
-    rtr22
+    rtr22:
       ansible_host: 10.10.0.1
 
     vars:
