@@ -1,0 +1,13 @@
+---
+- name: Power on AWS VM
+  gather_facts: false
+  hosts: localhost
+
+  tasks:
+
+    - name: Call AWS EC2 module
+      amazon.aws.ec2_instance:
+        region: us-east-2
+        state: started
+        instance_ids:
+          - i-00d6eb1990ec4ff3e
