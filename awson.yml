@@ -8,6 +8,6 @@
     - name: Call AWS EC2 module
       amazon.aws.ec2_instance:
         region: us-east-2
-        state: started
+        state: stopped
         instance_ids:
           - i-00d6eb1990ec4ff3e
