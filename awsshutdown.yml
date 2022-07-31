@@ -1,0 +1,3 @@
+- name: Terminate every running instance in a region. Use with EXTREME caution.
+  amazon.aws.ec2_instance:
+    state: absent
