@@ -1,0 +1,5 @@
+--- 
+- name: Play 1 - Pign
+  gather_facts: no
+  hosts: all
+  ad
