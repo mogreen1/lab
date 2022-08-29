@@ -11,3 +11,4 @@
       debug:
         msg: Hi {{ myvar }}
         #test from VSCode Sync
+        #another test from VSCODE Synce
