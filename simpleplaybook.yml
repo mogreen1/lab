@@ -10,3 +10,4 @@
     - name:
       debug:
         msg: Hi {{ myvar }}
+        #test from VSCode Sync
