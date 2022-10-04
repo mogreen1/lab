@@ -5,7 +5,7 @@
   tasks:
    - name: Query all devices in a network.
      meraki_device:
-       auth_key: 26cfd01a79b3a98be033bac7ecd35685b8c574ca 
+       auth_key: {{ my_auth_key }} 
        org_id: 253042
        state: query
      register: merinfo
