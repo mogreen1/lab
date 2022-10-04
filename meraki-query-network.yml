@@ -6,7 +6,7 @@
    - name: Query all devices in a network.
      meraki_device:
        auth_key: 34465ef5a45c914f1302f6b87a0a2912c91a2e0e 
-       org_id: 253042
+       org_id: 661615
        state: query
      register: merinfo
      delegate_to: localhost 
