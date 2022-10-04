@@ -15,4 +15,4 @@
             port: 514
             roles:
               - Flows
-      delegate_to: localhosr
+      delegate_to: localhost
