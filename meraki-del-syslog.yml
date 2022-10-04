@@ -1,0 +1,15 @@
+---
+- name: Test Communication to Meraki API
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    
+    - name: Add multiple syslog servers
+      meraki_syslog:
+        auth_key: 34465ef5a45c914f1302f6b87a0a2912c91a2e0e
+        state: present
+        org_id: 661615 
+        net_name: BigATL
+        servers:
+          - host:
+      delegate_to: localhost	  
