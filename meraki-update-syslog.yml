@@ -14,19 +14,19 @@
     
    - name: Gather All Meraki Network IDs
      set_fact:
-       network_ids: "{{ merinfo.data | selectattr('id', 'defined') | map(attribute='id') | list }}"
+       network_names: "{{ merinfo.data | selectattr('name', 'defined') | map(attribute='name') | list }}"
 
    - name: Update SYSLOG Servers for All Networks
      meraki_syslog:
        auth_key: 34465ef5a45c914f1302f6b87a0a2912c91a2e0e
        state: present
        org_id: 661615 
-       net_id: "{{ item }}"
+       net_name: "{{ item }}"
        servers:
          - host: "{{ syslog_ip_1 }}"
            port: "{{ syslog_port_1 }}"
            roles:
              - Flows
      delegate_to: localhost
-     loop: "{{ network_ids }}" 
+     loop: "{{ network_names }}" 
 
