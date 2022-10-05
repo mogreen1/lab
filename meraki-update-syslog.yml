@@ -1,0 +1,33 @@
+---
+- name: Play 1 
+  hosts: localhost
+  gather_facts: false
+  tasks:
+
+   - name: Query Meraki Org for All Networks 
+     meraki_network:
+       auth_key: 34465ef5a45c914f1302f6b87a0a2912c91a2e0e 
+       org_id: 661615
+       state: query
+     delegate_to: localhost 
+     register: merinfo
+    
+   - name: Gather All Meraki Network IDs
+     set_fact:
+       network_ids: "{{ merinfo.data | selectattr('id', 'defined') | map(attribute='id') | list }}"
+     register: jinjadata
+
+   - name: Update SYSLOG Servers for All Networks
+     meraki_syslog:
+       auth_key: 34465ef5a45c914f1302f6b87a0a2912c91a2e0e
+       state: present
+       org_id: 661615 
+       net_id: "{{ item }}"
+       servers:
+         - host: 192.168.0.211
+           port: 514
+           roles:
+             - Flows
+     delegate_to: localhost
+     loop: "{{ network_ids }}" 
+
