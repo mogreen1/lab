@@ -12,7 +12,7 @@
      delegate_to: localhost 
      register: merinfo
     
-   - name: Gather All Meraki Network IDs
+   - name: Gather All Meraki Network Names
      set_fact:
        network_names: "{{ merinfo.data | selectattr('name', 'defined') | map(attribute='name') | list }}"
 
