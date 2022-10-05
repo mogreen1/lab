@@ -23,8 +23,8 @@
        org_id: 661615 
        net_id: "{{ item }}"
        servers:
-         - host: 192.168.0.211
-           port: 514
+         - host: "{{ syslog_ip_1 }}"
+           port: "{{ syslog_port_1 }}"
            roles:
              - Flows
      delegate_to: localhost
