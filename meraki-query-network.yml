@@ -1,10 +1,10 @@
 ---
-- name: Test Communication to Meraki API
+- name: Meraki Play 1
   hosts: localhost
   gather_facts: false
   tasks:
    - name: Query all devices in a network.
-     meraki_device:
+     meraki_network:
        auth_key: 34465ef5a45c914f1302f6b87a0a2912c91a2e0e 
        org_id: 661615
        state: query
