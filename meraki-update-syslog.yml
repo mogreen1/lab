@@ -15,7 +15,6 @@
    - name: Gather All Meraki Network IDs
      set_fact:
        network_ids: "{{ merinfo.data | selectattr('id', 'defined') | map(attribute='id') | list }}"
-     register: jinjadata
 
    - name: Update SYSLOG Servers for All Networks
      meraki_syslog:
