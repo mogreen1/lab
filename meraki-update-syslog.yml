@@ -6,7 +6,7 @@
 
    - name: Query Meraki Org for All Networks 
      meraki_network:
-       auth_key: "{{ auth_key_mg2 }}"
+       auth_key: 34465ef5a45c914f1302f6b87a0a2912c91a2e0e
        org_id: 661615
        state: query
      delegate_to: localhost 
