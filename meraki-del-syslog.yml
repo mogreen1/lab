@@ -2,6 +2,8 @@
 - name: Test Communication to Meraki API
   hosts: localhost
   gather_facts: false
+  var_files:
+    - vault.yml
   tasks:
     
     - name: Add multiple syslog servers
