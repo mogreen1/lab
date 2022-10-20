@@ -9,7 +9,7 @@
 
    - name: Query Meraki Org for All Networks 
      meraki_network:
-       auth_key: "{{ auth_key_mg2 }}"
+       auth_key: "{{ auth_key }}"
        org_id: 661615
        state: query
      delegate_to: localhost 
@@ -21,7 +21,7 @@
 
    - name: Update SYSLOG Servers for All Networks
      meraki_syslog:
-       auth_key: "{{ auth_key_mg2 }}"
+       auth_key: "{{ auth_key }}"
        state: present
        org_id: 661615 
        net_name: "{{ item }}"
