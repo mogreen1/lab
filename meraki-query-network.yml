@@ -2,7 +2,7 @@
 - name: Meraki Play 1
   hosts: localhost
   gather_facts: false
-  vars_file:
+  vars_files:
     - vault.yml
     
   tasks:
