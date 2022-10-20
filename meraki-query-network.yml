@@ -2,10 +2,13 @@
 - name: Meraki Play 1
   hosts: localhost
   gather_facts: false
+  vars_file:
+    - vault.yml
+    
   tasks:
    - name: Query all devices in a network.
      meraki_network:
-       auth_key: {{ my_auth_key }} 
+       auth_key: "{{ auth_key }}"
        org_id: 661615
        state: query
      register: merinfo
