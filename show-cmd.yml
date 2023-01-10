@@ -1,0 +1,16 @@
+---
+- name: Simple Play to run a commands
+  hosts: cisco
+  gather_facts: no
+
+  tasks:
+
+    - name: Issue Commands to routers
+      cisco.ios.ios_command:
+        commands:
+          #- show run | i hostname
+      register: command_output
+
+    - name: Display Prior Command output
+      debug:
+        msg: "{{ command_output }}"
