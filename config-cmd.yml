@@ -1,0 +1,11 @@
+---
+- name: Router Hostname Demo
+  hosts: cisco
+  gather_facts: no
+
+  tasks:
+
+    - name: Change Router Hostname
+      cisco.ios.config:
+        commands:
+          -  hostname {{ inventory_hostname }}
