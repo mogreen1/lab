@@ -6,11 +6,12 @@ all:
       hosts:
         servera:
           ansible_host: 10.2.0.50
+          ansible_user: ec2-user
         serverb:
 
       vars:
       ansible_user: ec2-user
-      ansible_become: true
+      ansible_become: false
       ansible_become_method: sudo
 
     cisco:
@@ -24,6 +25,6 @@ all:
       ansible_user: ec2-user
       ansible_network_os: ios
       ansible_connection: network_cli
-      ansible_become: true
+      ansible_become: false
       ansible_become_method: enable
       ansible_password: cisco
