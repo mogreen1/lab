@@ -4,27 +4,11 @@ all:
   children:
     servers:
       hosts:
-        servera:
+        serverx:
           ansible_host: 10.2.0.49
           ansible_user: ec2-user
-        serverb:
 
       vars:
       ansible_user: ec2-user
       ansible_become: false
       ansible_become_method: sudo
-
-    cisco:
-      hosts:
-        rtr1:
-          ansible_host: 10.0.5.55
-        rtr22:
-          ansible_host: 10.10.0.1
-
-      vars:
-      ansible_user: ec2-user
-      ansible_network_os: ios
-      ansible_connection: network_cli
-      ansible_become: true
-      ansible_become_method: enable
-      ansible_password: cisco
