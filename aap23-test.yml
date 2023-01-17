@@ -1,0 +1,14 @@
+---
+- name: Gather information from servera
+  hosts: servera
+  gather_facts: no
+
+  tasks:
+    - name: Gather servera facts
+      ansible.builtin.setup:
+        
+      register: myfacts
+
+    - name: Print servera facts
+      debug:
+        var: myfacts
