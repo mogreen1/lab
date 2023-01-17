@@ -6,7 +6,7 @@
   tasks:
     - name: Gather servera facts
       ansible.builtin.setup:
-        
+      delegate_to: localhost 
       register: myfacts
 
     - name: Print servera facts
