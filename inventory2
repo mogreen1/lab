@@ -5,7 +5,7 @@ all:
     servers:
       hosts:
         servera:
-          ansible_hosts: 10.0.15.107
+          ansible_hosts: 10.2.0.50
         serverb:
 
       vars:
