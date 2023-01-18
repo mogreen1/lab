@@ -7,11 +7,11 @@
     - name: gather router facts
       cisco.ios.facts:
 
-    - name: Issue commands to routers
-      cisco.ios.ios_command:
-        commands:
-        - show run | i hostname
-      register: command_output
+#    - name: Issue commands to routers
+#      cisco.ios.ios_command:
+#        commands:
+#        - show run | i hostname
+#      register: command_output
 
     - name: Display prior command output
       debug:
