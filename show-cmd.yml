@@ -4,6 +4,8 @@
   gather_facts: no
 
   tasks:
+    - name: gather router facts
+      cisco.ios.facts:
 
     - name: Issue commands to routers
       cisco.ios.ios_command:
@@ -13,4 +15,4 @@
 
     - name: Display prior command output
       debug:
-        msg: "{{ command_output }}"
+        msg: The hostname was changed to {{ ansible_net_hostname }}
