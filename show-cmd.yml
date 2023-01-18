@@ -15,4 +15,4 @@
 
     - name: Display prior command output
       debug:
-        msg: The hostname was changed to {{ ansible_net_hostname }}
+        msg: The hostname is {{ ansible_net_hostname }}.
