@@ -1,0 +1,17 @@
+---
+- name: Play 1 - Update Network Sec Group
+  hosts: localhost
+  gather_facts: false
+  
+  tasks:
+    - name: Task 1 - Edit NSG
+      azure_rm_securitygroup:
+        resource_group: openenv-45w76-2
+        name: demo_sec_group
+        rules:
+            - name: Allow Port
+              protocol: Tcp
+              destination_port_range: 5986
+              access: Allow
+              priority: 102
+              direction: Inbound
