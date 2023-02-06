@@ -10,7 +10,7 @@
         resource_group: openenv-45w76-2
         name: demo_sec_group
         rules:
-              name: Allow Port
+            - name: Allow Port
               protocol: Tcp
               destination_port_range: 5986
               access: Allow
