@@ -1,0 +1,30 @@
+
+￼￼
+41 lines (38 sloc)  1.25 KB
+RawBlame
+￼
+￼
+---
+- name: Create Resource Group
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  tasks:
+    
+    - name: Create Network Security Group that allows SSH and RDP
+      azure_rm_securitygroup:
+        resource_group: "{{ resource_group_name | default('demo') }}"
+        name: "{{ network_sec_group_name }}"
+        rules:
+          - name: SSH
+            protocol: Tcp
+            destination_port_range: 222
+            access: Allow
+            priority: 1001
+            direction: Inbound
+          - name: RDP
+            protocol: Tcp
+            destination_port_range: 33899
+            access: Allow
+            priority: 1002
+            direction: Inbound
