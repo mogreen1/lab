@@ -2,3 +2,4 @@
 collections:
 
 - cisco.meraki
+- azure.azcollection
