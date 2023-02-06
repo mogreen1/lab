@@ -5,7 +5,7 @@
   
   tasks:
     - name: Task 1 - Edit NSG
-      azure_rm_securitygroup:
+      azure.azcollection.azure_rm_securitygroup:
         resource_group: openenv-45w76-2
         name: demo_sec_group
         rules:
