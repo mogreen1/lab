@@ -1,6 +1,6 @@
 ---
 - name: Router Hostname Demo
-  hosts: cisco
+  hosts: {{ router_name }}
   gather_facts: no
 
   tasks:
