@@ -32,13 +32,13 @@
       loop:
         "{{ routers }}"
 
-- name: Play 2
-  gather_facts: false
-  hosts: ansible-1
-  become: true
-  become_method: sudo
+#- name: Play 2
+#  gather_facts: false
+#  hosts: ansible-1
+#  become: true
+#  become_method: sudo
 
-  tasks:
+#  tasks:
   
  #   - name: Comment out line in ansible.config
  #     ansible.builtin.lineinfile:
