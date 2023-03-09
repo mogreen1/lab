@@ -1,0 +1,90 @@
+---
+- name: Customize Network Workshop
+  hosts: localhost
+  gather_facts: false
+  vars:
+    con_host: 
+    con_user: 
+    con_pass: 
+    scm_repo:
+
+  tasks:
+
+    - name: Create project
+      awx.awx.project:
+        name: "D_project"
+        organization: "Red Hat network organization"
+        state: present
+        scm_type: git
+        scm_url: "{{ scm_repo }}"
+        controller_host: "{{ con_host }}"
+        controller_username: "{{ con_user }}"
+        controller_password: "{{ con_pass }}"
+    
+    - name: Create job templates
+      awx.awx.job_template:
+        name: "1{{ item.desc }}"
+        job_type: "run"
+        organization: "Red Hat network organization"
+        inventory: "Workshop Inventory"
+        limit: "cisco"
+        project: "D_project"
+        playbook: "{{ item.name }}"
+        credentials:
+          - "Workshop Credential"
+        state: "present"
+        #survey_enabled: yes
+        #survey_spec: "{{ lookup('file', 'my_survey.json') }}"
+        controller_host: "{{ con_host }}"
+        controller_username: "{{ con_user }}"
+        controller_password: "{{ con_pass }}"
+      loop:
+        - name: config-cmd.yml
+          desc: config-cmd
+        - name: show-cmd.yml
+          desc: show-cmd
+
+    - name: Create a workflow job template
+      awx.awx.workflow_job_template:
+        name: 1Network Orchestration
+        organization: Red Hat network organization
+        controller_host: "{{ con_host }}"
+        controller_username: "{{ con_user }}"
+        controller_password: "{{ con_pass }}"
+        workflow_nodes:
+          - identifier: Config-cmd
+            unified_job_template:
+              organization:
+                name: Red Hat network organization
+              name: 1config-cmd
+              type: job_template
+            credentials: []
+            related:
+              success_nodes: []
+              failure_nodes: []
+              always_nodes:
+               - identifier: Show-cmd
+              credentials: []
+          - identifier: Show-cmd
+            unified_job_template:
+              organization:
+                name: Red Hat network organization
+              name: 1show-cmd
+              type: job_template
+            related:
+              success_nodes: []
+              failure_nodes: []
+              always_nodes:
+               - identifier: Network-Report
+              credentials: []
+          - identifier: Network-Report
+            unified_job_template:
+              organization:
+                name: Red Hat network organization
+              name: Network-Report
+              type: job_template
+            related:
+              success_nodes: []
+              failure_nodes: []
+              always_nodes: []
+              credentials: []
