@@ -1,0 +1,48 @@
+---
+- name: Play 1
+  gather_facts: false
+  hosts: localhost
+  vars:
+    network_collections:
+      - ansible.netcommon
+      - cisco.ios
+      - ansible.netcommon
+    
+    routers:
+      - rtr1
+      - rtr2
+      - rtr3
+      - rtr4
+
+  tasks:
+
+    - name: Shell Command - Install Networking Collections
+      ansible.builtin.shell:
+        cmd: ansible-galaxy collection install {{ item }}
+      loop:
+        "{{ network_collections }}"
+
+    - name: Shell Command - Pip Install libssh
+      ansible.builtin.shell:
+        cmd: pip3.9 install ansible-pylibssh
+
+    - name: Shell Command - Router wr mem
+      ansible.builtin.shell:
+        cmd: ssh {{ item }} 'wr mem'
+      loop:
+        "{{ routers }}"
+
+- name: Play 2
+  gather_facts: false
+  hosts: ansible-1
+  become: true
+  become_method: sudo
+
+  tasks:
+  
+ #   - name: Comment out line in ansible.config
+ #     ansible.builtin.lineinfile:
+ #       path: /etc/ansible/ansible.cfg
+ #       line:
+
+        
