@@ -2,11 +2,11 @@
 - name: Customize Network Workshop
   hosts: localhost
   gather_facts: false
-  vars:
-    con_host: 
-    con_user: 
-    con_pass: 
-    scm_repo:
+#  vars:
+#    con_host: 
+#    con_user: 
+#    con_pass: 
+#    scm_repo:
 
   tasks:
 
