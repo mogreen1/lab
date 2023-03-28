@@ -1,0 +1,60 @@
+---
+- name: Play 1 
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  tasks:
+
+    - name: Query all devices in an organization.
+      meraki_device:
+        auth_key: "{{ auth_key }}"
+        org_id: 661615
+        state: query
+      delegate_to: localhost
+      register: merinfo
+   
+    - name:
+      debug: 
+        var: merinfo
+
+    - name: Gather All Meraki Network Names
+      debug:
+        msg: "{{ item.product_type
+         }} \n {{ item.model }}"
+      loop: "{{ merinfo.data }}"
+      loop_control: 
+        label: "{{ item.name }}"
+
+#     set_fact:
+#       device_serial: "{{ merinfo.data | selectattr('product_type', 'equalto', 'switch') | map(attribute='serial') | list }}"
+    
+#    - name: Query information about all switchports on a switch
+#      meraki_switchport:
+#        auth_key: 34465ef5a45c914f1302f6b87a0a2912c91a2e0e
+#        state: query
+#        serial: "{{ item }}"
+#      delegate_to: localhost
+#      register: switch_config
+#      loop: "{{ device_serial }}"   
+      
+#    - name: Gather All Port IDs
+#      set_fact:
+#        port_numbers: "{{ switch_config.results | selectattr('data', 'defined') | map(attribute='data') | list }}"      
+
+
+#    - name: Print device information
+#      set_fact:
+#        ugh_var: "{{ port_numbers | selectattr('access_policy_type', 'undefined') | map(attribute='access_policy_type') | list }}"      
+
+#   - name:
+#     debug:
+#        var: device_serial    
+
+  
+
+    #- name: Query information about all switchports on a switch
+      #meraki_switchport:
+        #auth_key: 34465ef5a45c914f1302f6b87a0a2912c91a2e0e
+        #state: query
+        #serial: ABC-123
+      #delegate_to: localhost
