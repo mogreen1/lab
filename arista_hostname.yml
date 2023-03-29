@@ -1,0 +1,9 @@
+---
+- name: Play 1
+  hosts: arista
+  gather_facts: false
+  tasks:
+  
+    - name: configure top level settings
+      arista.eos.eos_config:
+        lines: hostname {{ inventory_hostname }}
