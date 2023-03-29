@@ -1,0 +1,10 @@
+---
+- name: Play 1
+  hosts: cisco
+  gather_facts: false
+  tasks:
+  
+    - name: Reset Hostname
+      cisco.ios.config:
+        commands:
+          - hostname {{ inventory_hostname }}
