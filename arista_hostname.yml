@@ -3,7 +3,9 @@
   hosts: arista
   gather_facts: false
   tasks:
+  vars:
+    custom_hostname: basic
   
     - name: configure top level settings
       arista.eos.eos_config:
-        lines: hostname {{ inventory_hostname }}-{{ custom_hostname }}"
+        lines: hostname {{ inventory_hostname }}-{{ custom_hostname }}
