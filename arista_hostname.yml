@@ -6,4 +6,4 @@
   
     - name: configure top level settings
       arista.eos.eos_config:
-        lines: hostname {{ inventory_hostname }}
+        lines: hostname {{ inventory_hostname }}-{{ custom_hostname }}"
