@@ -15,6 +15,6 @@
         serial: "{{ serial_number }}"
         enabled: "{{ boolean }}"
         number: "{{ port_number }}"
-        name: Test Port
+        name: "{{ port_name }}"
       delegate_to: localhost
       
