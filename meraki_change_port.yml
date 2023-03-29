@@ -1,0 +1,20 @@
+---
+- name: Play 1 
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  vars_files:
+    - vault.yml
+  tasks:
+
+
+    - name: Name switchport
+      meraki_switchport:
+        auth_key: "{{ auth_key }}"
+        state: present
+        serial: "{{ serial_number }}"
+        enabled: "{{ boolean }}"
+        number: "{{ port_number }}"
+        name: Test Port
+      delegate_to: localhost
+      
