@@ -15,11 +15,11 @@
       delegate_to: localhost
       register: merinfo
    
-    - name:
-      debug: 
-        var: merinfo
+    #- name:
+      #debug: 
+        #var: merinfo
 
-    - name: Gather All Meraki Network Names
+    - name: Print Device Info
       debug:
         msg: "{{ item.product_type
          }} {{ item.model }} {{ item.serial }} "
