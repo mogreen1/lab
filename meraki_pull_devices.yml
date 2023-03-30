@@ -22,7 +22,7 @@
     - name: Gather All Meraki Network Names
       debug:
         msg: "{{ item.product_type
-         }} \n {{ item.model }}"
+         }} {{ item.model }} {{ item.serial }} "
       loop: "{{ merinfo.data }}"
       loop_control: 
         label: "{{ item.name }}"
