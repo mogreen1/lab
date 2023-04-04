@@ -1,0 +1,26 @@
+---
+- name: Create Allow Rule
+  hosts: palo.shadowman.dev
+  connection: local
+  gather_facts: false
+
+  tasks:
+
+    - name: Create Address Object
+      paloaltonetworks.panos.panos_address_object:
+        provider: 
+          ip_address: "{{ palo_ip_address }}"
+          username: "{{ palo_username }}"
+          password: "{{ palo_password }}"
+        name: '{{ object_name }}'
+        address_type: 'ip-netmask'
+        value: '{{ object_ip }}'
+
+    - name: Create object group
+      paloaltonetworks.panos.panos_address_group:
+        provider: 
+          ip_address: "{{ palo_ip_address }}"
+          username: "{{ palo_username }}"
+          password: "{{ palo_password }}"
+        name: 'BadGuys'
+        static_value: "{{ object_name }}"
