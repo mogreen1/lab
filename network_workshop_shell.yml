@@ -21,16 +21,19 @@
         cmd: ansible-galaxy collection install {{ item }}
       loop:
         "{{ network_collections }}"
+      delegate_to: ansible-1
 
     - name: Shell Command - Pip Install libssh
       ansible.builtin.shell:
         cmd: pip3.9 install ansible-pylibssh
+      delegate_to: ansible-1
 
     - name: Shell Command - Router wr mem
       ansible.builtin.shell:
         cmd: ssh {{ item }} 'wr mem'
       loop:
         "{{ routers }}"
+      delegate_to: ansible-1
 
 #- name: Play 2
 #  gather_facts: false
