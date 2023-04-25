@@ -1,0 +1,28 @@
+---
+- name: Play 1 
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  vars_files:
+    - vault.yml
+  tasks:
+
+    - name: Query all devices in an organization.
+      meraki_device:
+        auth_key: "{{ auth_key }}"
+        org_id: "{{ org_id }}"
+        state: query
+      delegate_to: localhost
+      register: merinfo
+   
+    #- name:
+      #debug: 
+        #var: merinfo
+
+    - name: Print Device Info
+      debug:
+        msg: "{{ item.product_type
+         }} {{ item.model }} {{ item.serial }} "
+      loop: "{{ merinfo.data }}"
+      loop_control: 
+        label: "{{ item.name }}"
