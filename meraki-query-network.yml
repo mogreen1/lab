@@ -9,7 +9,7 @@
    - name: Query all devices in a network.
      meraki_network:
        auth_key: "{{ auth_key }}"
-       org_id: 661615
+       org_id: "{{ org_id }}"
        state: query
      register: merinfo
      delegate_to: localhost 
