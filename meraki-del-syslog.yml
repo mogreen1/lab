@@ -10,7 +10,7 @@
       meraki_syslog:
         auth_key: "{{ auth_key }}"
         state: present
-        org_id: 661615 
+        org_id: "{{ org_id }}" 
         net_name: BigATL
         servers:
           - host:
