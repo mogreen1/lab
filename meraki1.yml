@@ -6,9 +6,9 @@
     
     - name: Calling Meraki Org Module to Query details
       meraki_organization:
-        auth_key: {{ my_auth_key }} 
+        auth_key: {{ auth_key }} 
         state: query
-        org_id: 253042
+        org_id: "{{ org_id }}"
       register: merinfo
       delegate_to: localhost
      
