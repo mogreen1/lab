@@ -1,3 +1,4 @@
 Brand new file.
 Test new file.
 3rd line of text file.
+New line.
