@@ -1,5 +1,5 @@
 ---
-- name: Shutdown AWS instances
+- name: Power on AWS instances
   hosts: localhost
   gather_facts: false
   #vars_files:
