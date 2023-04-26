@@ -9,7 +9,7 @@
     - name: Add multiple syslog servers
       meraki_syslog:
         auth_key: "{{ auth_key }}"
-        state: present
+        state: present #consider modifying logic to use absent state with no servers parameter
         org_id: "{{ org_id }}" 
         net_name: BigATL
         servers:
