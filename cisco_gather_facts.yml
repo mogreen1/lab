@@ -1,0 +1,19 @@
+---
+- name: Gather information from routers
+  hosts: cisco
+  gather_facts: no
+
+  tasks:
+    - name: Gather router facts
+      cisco.ios.facts:
+        gather_network_resources: all
+      register: myfacts
+
+    - name: Print router facts
+      debug:
+        var: myfacts
+
+    - name: Copy to router facts to a file 
+      copy:
+        content: "{{ myfacts | to_nice_yaml }}"
+        dest: ./myfacts.txt

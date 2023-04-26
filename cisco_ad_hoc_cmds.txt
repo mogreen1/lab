@@ -1,0 +1,2 @@
+ansible cisco -m ios_command -a "commands='show run | i hostname'"
+ansible cisco -m ios_config -a "commands='hostname test'"
