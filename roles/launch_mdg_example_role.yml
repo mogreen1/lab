@@ -1,0 +1,7 @@
+--- 
+- name: Testing vars
+  hosts: localhost
+  connection: local
+  
+  roles: 
+    - mdg_example_role 
