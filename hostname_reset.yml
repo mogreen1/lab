@@ -1,4 +1,5 @@
 ---
+#Used to reset hostnames for networking workshop
 - name: Play 1
   hosts: cisco
   gather_facts: false
