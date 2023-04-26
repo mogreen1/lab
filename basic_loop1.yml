@@ -1,0 +1,16 @@
+---
+- name:
+  hosts: localhost
+  gather_facts: false
+  vars:
+   listofvars:
+    - var1: Test
+    - var2: Message
+
+  tasks:
+
+  - name:
+    debug:
+      msg: "{{ item }}"
+    loop:
+      "{{ listofvars }}"

@@ -1,0 +1,48 @@
+---
+- name: Modify PAN FW Config
+  hosts: palo.shadowman.dev
+  gather_facts: false
+  connection: local
+  vars:
+    provider:
+      ip_address: "{{ ip_address }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+  
+  tasks:
+
+    - name: Create Address Object
+      paloaltonetworks.panos.panos_address_object:
+        provider: '{{ provider }}'
+        name: 'AppServers'
+        address_type: 'ip-range'
+        value: '172.16.100.0-172.16.102.255'
+
+    - name: Create object group
+      paloaltonetworks.panos.panos_address_group:
+        provider: '{{ provider }}'
+        name: 'CriticalStuff'
+        static_value: ['AppServers']
+
+    - name: Create or Modify FW Rule
+      paloaltonetworks.panos.panos_security_rule:
+        provider: '{{ provider }}'
+        rule_name: 'Block Bad Guys'
+        source_zone: ['any']
+        destination_zone: ['any']
+        source_ip: ['BadGuys']
+        source_user: ['any']
+        destination_ip: ['CriticalStuff']
+        category: ['any']
+        application: ['any']
+        service: ['any']
+        hip_profiles: ['any']
+        action: 'drop'
+        state: 'present'
+    
+    #- name: Commit Changes
+      #paloaltonetworks.panos.panos_commit_firewall:
+        #provider:
+          #ip_address: "{{ palo_ip_address }}"
+          #username: "{{ palo_username }}"
+          #password: "{{ palo_password }}"

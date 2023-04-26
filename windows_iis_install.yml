@@ -1,0 +1,13 @@
+---
+- name: Test a module
+  hosts: windows
+  gather_facts: false
+
+  tasks:
+
+  - name: Install IIS Web-Server with sub features and management tools
+    ansible.windows.win_feature:
+      name: Web-Server
+      state: absent
+      #include_sub_features: yes
+      #include_management_tools: yes

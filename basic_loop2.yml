@@ -1,0 +1,11 @@
+---
+- name: Working with loops
+  hosts: routers
+  gather_facts: false
+
+  tasks:
+
+    - name: Use Debug Module to print all hostnames
+      debug: 
+        msg: "{{ item }}"
+      loop: "{{ groups['all'] }}"

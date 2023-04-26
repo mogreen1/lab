@@ -1,0 +1,16 @@
+---
+- name: Fun with variables
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  
+  vars:
+    var1: Good
+    var2: Day
+    var3: Have fun.
+  
+  tasks:
+
+    - name: Use debug module
+      debug:
+        msg: "{{ var1 }} {{var2}} {{var3}}"

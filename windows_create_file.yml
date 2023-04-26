@@ -1,0 +1,11 @@
+--- 
+- name: Simple Playbook Example
+  hosts: windows
+  gather_facts: false
+
+  tasks:
+
+  - name: Create file on a Windows server
+    ansible.windows.win_copy:
+      content: It's almost time for March Madness.
+      dest: C:\march_madness.txt

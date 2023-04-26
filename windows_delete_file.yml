@@ -1,0 +1,11 @@
+---
+- name: Simple Playbook
+  hosts: windows
+  gather_facts: false
+
+  tasks:
+
+  - name: Delete file on a Windows server
+    ansible.windows.win_file:
+      path: C:\march_madness.txt
+      state: absent

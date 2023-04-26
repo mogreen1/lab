@@ -1,0 +1,56 @@
+---
+- name: First Play
+  gather_facts: false
+  connection: local
+  hosts: localhost
+
+ # vars_files:
+  #  - vault.yml
+
+  vars:
+    base_url: "https://api.meraki.com/api/v1"
+    meraki_headers:
+      Content-Type: "application/json"
+      X-Cisco-Meraki-API-Key: "{{ auth_key }}"
+
+
+  tasks:
+
+    - name: Query all devices in an organization.
+      meraki_device:
+        auth_key: "{{ auth_key }}"
+        org_id: "{{ org_id }}"
+        state: query
+      delegate_to: localhost
+      register: merinfo
+
+   # - name: 
+    #  set_fact: 
+     #   device_serial: "{{ merinfo.data | selectattr('product_type', 'equalto', 'camera') | map(attribute='serial') | list }}"
+
+
+    - name: Print data
+      debug:
+        var: merinfo.data.1.serial
+        
+   # - name: Change Camera Setting
+    #  ansible.builtin.uri:
+     #   url: "{{ base_url }}/devices/{{ item }}/camera/qualityAndRetention"
+      #  method: PUT
+       # headers: "{{ meraki_headers }}"
+        #follow_redirects: all
+        #body_format: json
+        #body:
+         # audioRecordingEnabled: False   
+          #quality: Standard
+      #delegate_to: localhost
+      #loop: "{{ device_serial }}"  
+
+    #- name:
+      #debug:
+        #var: meraki_info
+      #delegate_to: localhost
+
+
+          
+        
