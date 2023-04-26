@@ -1,4 +1,5 @@
 ---
+#Used to test AAP on Azure "SaaS" Lab
 - name: Create Resource Group
   hosts: localhost
   connection: local
