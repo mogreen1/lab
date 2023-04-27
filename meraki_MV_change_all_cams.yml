@@ -1,5 +1,5 @@
 ---
-- name: First Play
+- name: Modify Meraki configuration 
   gather_facts: false
   connection: local
   hosts: localhost
@@ -24,16 +24,16 @@
       delegate_to: localhost
       register: merinfo
 
-    - name: 
+    - name: Gather Device serial numbers
       set_fact: 
         device_serial: "{{ merinfo.data | selectattr('product_type', 'equalto', 'camera') | map(attribute='serial') | list }}"
 
 
-    - name: Print data
-      debug:
-        var: merinfo.data.1.serial
+    #- name: Print data
+      #debug:
+        #var: merinfo.data.1.serial
         
-    - name: Change Camera Setting
+    - name: Change MV camera configuration
       ansible.builtin.uri:
         url: "{{ base_url }}/devices/{{ item }}/camera/qualityAndRetention"
         method: PUT
