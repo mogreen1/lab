@@ -1,5 +1,5 @@
 ---
-- name: Play 1 
+- name: Modify Meraki configuration 
   hosts: localhost
   connection: local
   gather_facts: false
@@ -15,7 +15,7 @@
       delegate_to: localhost
       register: merinfo
 
-    - name: Run Set Fact
+    - name: Gather device serial numbers
       set_fact:
         device_serial: "{{ merinfo.data | selectattr('product_type', 'equalto', 'switch') | map(attribute='serial') | list }}"   
 
@@ -28,16 +28,16 @@
       register: switch_config
       #loop: "{{ device_serial }}"  
 
-    - name: Run Set Fact
+    - name: Gather port numbers from switch
       set_fact:
         port_numbers: "{{ switch_config.data | selectattr('port_id') | map(attribute='port_id') | list }}"
 
-    - name: Name switchport
+    - name: Modify switchports
       meraki_switchport:
         auth_key: "{{ auth_key }}"
         state: present
         serial: "{{ serial_number }}"
-        enabled: "{{ boolean }}"
+        enabled: "{{ port_status }}"
         number: "{{ item }}"
         name: "{{ port_name }}"
         vlan: "{{ vlan_number }}"
