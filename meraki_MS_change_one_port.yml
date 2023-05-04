@@ -8,7 +8,7 @@
   tasks:
 
 
-    - name: Name switchport
+    - name: Modify a switchport
       meraki_switchport:
         auth_key: "{{ auth_key }}"
         state: present
