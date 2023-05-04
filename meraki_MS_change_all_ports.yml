@@ -41,5 +41,6 @@
         number: "{{ item }}"
         name: "{{ port_name }}"
         vlan: "{{ vlan_number }}"
+        type: "{{ port_type }}"
       delegate_to: localhost
       loop: "{{ port_numbers }}"
