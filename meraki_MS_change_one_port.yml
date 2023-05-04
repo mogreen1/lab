@@ -13,8 +13,9 @@
         auth_key: "{{ auth_key }}"
         state: present
         serial: "{{ serial_number }}"
-        enabled: "{{ boolean }}"
+        enabled: "{{ port_status }}"
         number: "{{ port_number }}"
         name: "{{ port_name }}"
+        vlan: "{{ vlan_number }}"
       delegate_to: localhost
       
