@@ -1,0 +1,55 @@
+---
+- name: Play 1 - Enable Intranet Services 
+  hosts: serverb.lab.example.com 
+  become: true
+  gather_facts: false
+
+  tasks:
+
+    - name: Istall HTTPD and FirewallD
+      yum:
+        name:
+          - firewalld
+          - httpd
+          - mariadb-server
+          - php
+          - php-mysqlnd
+        state: latest
+
+    - name: Install Index File
+      get_url:
+        url: http://materials.example.com/labs/playbook-review/index.php
+        dest: /var/www/html/
+
+    - name: Start and Enable Firewalld
+      service:
+        name: "{{ item }}"
+        state: started
+        enabled: true
+      loop:
+        - firewalld
+        - httpd 
+        - mariadb
+
+    - name: Allow Service on Firewalld
+      firewalld:
+        service: "{{ item }}"
+        state: enabled
+        permanent: true
+        immediate: true
+      loop:
+        - http
+        - https
+ 
+
+- name: Play 2
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    
+    - name: Test URL
+      uri:
+        url: http://serverb.lab.example.com/index.php
+        return_content: true
+        status_code: 200
+      register: output
