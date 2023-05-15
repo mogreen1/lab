@@ -1,6 +1,6 @@
 ---
 - name: Play1 
-  hosts: servera.lab.example.com 
+  hosts: serverb.lab.example.com 
   vars:
     fw_pkg: firewalld
     fw_svc: firewalld
@@ -104,7 +104,7 @@
 
     - name: Use URI module
       uri:
-        url: https://servera.lab.example.com
+        url: https://serverb.lab.example.com
         status_code: 200
         user: "{{ web_user }}"
         password: "{{ web_pass }}"
