@@ -8,6 +8,7 @@
       fail:
         msg: "This task failed."
       when: ansible_facts['memory_mb']['real']['total'] < min_ram_mb or ansible_facts['distribution'] != 'RedHat'
+    #could have referred to the facts differently
     
     #Install all Packages
     - name: Ensure required packages are present
