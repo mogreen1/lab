@@ -1,0 +1,83 @@
+##Main Playbook
+
+---
+- name: Install and configure web service
+  hosts: server*.lab.example.com
+  tasks:
+    - name:
+      import_tasks: tasks/web_tasks.yml
+
+    - name:
+      import_tasks: tasks/firewall_tasks.yml
+    
+  handlers:
+    - name: restart httpd
+      service:
+        name: httpd
+        state: restarted
+
+#Import Tasks for web
+---
+- name: Install httpd
+  import_tasks: tasks/install_and_enable1.yml
+  vars:
+    wa: httpd
+    wb: httpd
+
+- name: Tuning configuration installed
+  copy:
+    src: files/tune.conf
+    dest: /etc/httpd/conf.d/tune.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - restart httpd
+    
+#Import Taks for fw
+---     
+- name: Install firewalld
+  import_tasks: tasks/install_and_enable.yml
+  vars:
+    fa: firewalld
+    fb: firewalld
+
+
+- name: Open the port for http
+  firewalld:
+    service: http
+    immediate: true
+    permanent: true
+    state: enabled
+
+#Install and Enable File 1
+
+
+---    
+- name: Install httpd
+  yum:
+    name: "{{ wa }}" 
+    state: latest
+
+- name: Enable and start httpd
+  service:
+    name: "{{ wb }}" 
+    enabled: true
+    state: started
+
+#Install and Enable File 2
+
+---    
+
+- name: Install firewalld
+  yum:
+    name: "{{ fa }}"
+    state: latest
+
+- name: Enable and start the firewall
+  service:
+    name: "{{ fb }}"
+    enabled: true
+    state: started
+
+  
