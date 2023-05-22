@@ -1,0 +1,43 @@
+---
+- name: Create files with templates
+  hosts: all
+  become: true
+  remote_user: devops
+  tasks:
+
+    - name: Create file from template
+      template:
+       src: motd.j2
+       dest: /etc/motd
+       owner: root
+       group: root
+       mode: '0644'
+      tags: works
+
+    - name: Stat to very existence
+      stat:
+        path: /etc/motd
+      register: filestats
+      tags: works
+
+    - name: Print output
+      debug:
+        var: filestats
+      tags: works
+     
+    - name: Copy files to host
+      copy:
+        src: files/issue
+        dest: /etc/issue
+        owner: root
+        group: root
+        mode: '0644'
+
+    - name: Create a symbolic link
+      file:
+        src: /etc/issue 
+        dest: /etc/issue.net 
+        owner: root
+        group: root
+        state: link
+        force: true
