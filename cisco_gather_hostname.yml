@@ -1,0 +1,16 @@
+---
+#Used with networking workshop
+- name: Router Hostname Demo
+  hosts: cisco
+  gather_facts: no
+
+  tasks:
+
+    - name: Gather listed hostname config
+      cisco.ios.ios_hostname:
+        state: gathered
+      register: hostnameinfo
+
+    - name: Print output
+      debug:
+        var: hostnameinfo
