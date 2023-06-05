@@ -11,7 +11,7 @@
     - name: Apply the provided configuration
       cisco.ios.ios_hostname:
         config:
-          hostname: Router1
+          hostname: "{{ custom_hostname }}"
         state: merged
 
     - name: Gather listed hostname config
