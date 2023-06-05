@@ -3,6 +3,8 @@
 - name: Router Hostname Demo
   hosts: cisco
   gather_facts: no
+  vars:
+    custom_hostname: basic
 
   tasks:
 
