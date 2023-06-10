@@ -2,8 +2,8 @@
 - name: Power on AWS instances
   hosts: localhost
   gather_facts: false
-  #vars_files:
-    #- vault.yml
+  vars_files:
+    - vault.yml
   vars:
     aws_region: us-east-2
 
@@ -11,8 +11,8 @@
     - name: Gather stopped instance information
       amazon.aws.ec2_instance_info:
         region: "{{ aws_region }}"
-        #access_key: "{{ access_key }}"
-        #secret_key: "{{ secret_key }}"
+        access_key: "{{ access_key }}"
+        secret_key: "{{ secret_key }}"
         uptime: 1
         filters:
           instance-state-name: [ "stopped" ]
@@ -25,8 +25,8 @@
     - name: Power on instances
       amazon.aws.ec2_instance:
         region: "{{ aws_region }}"
-        #access_key: "{{ access_key }}"
-        #secret_key: "{{ secret_key }}"
+        access_key: "{{ access_key }}"
+        secret_key: "{{ secret_key }}"
         instance_ids: "{{ item.instance_id }}"
         state: running
       loop: "{{ ec2_instance_facts.instances }}"
