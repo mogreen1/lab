@@ -4,5 +4,5 @@
   tasks:
     - name: debug
       debug: 
-        msg: "{{ ansible_hostname }}"
+        msg: "{{ ansible_host }}"
       ignore_errors: yes
