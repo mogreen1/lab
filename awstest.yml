@@ -5,5 +5,4 @@
     - name: debug
       debug: 
         msg: "{{ ansible_hostname }}"
-      ignore_erros: yes 
-13.58.62.32 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAHgITPY2EIkSvLBuSIihxgzlm7h3sQ3ZQv6JTe5zx0c
+      ignore_erros: yes
