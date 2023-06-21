@@ -1,0 +1,7 @@
+---
+- name: test aws vm connectivity
+  hosts: all
+  tasks:
+    - name: debug
+      debug: 
+        msg: "{{ ansible_hostname }}" 
