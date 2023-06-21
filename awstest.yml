@@ -1,8 +1,9 @@
 ---
 - name: test aws vm connectivity
   hosts: all
+  gather_facts: false
   tasks:
     - name: debug
       debug: 
-        msg: "{{ ansible_host }}"
+        msg: "{{ hostvars[host] }}"
       ignore_errors: yes
