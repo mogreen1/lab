@@ -1,7 +1,7 @@
 ---
 - name: test aws vm connectivity
   hosts: all
-  gather_facts: false
+  gather_facts: true
   tasks:
     - name: debug
       debug: 
