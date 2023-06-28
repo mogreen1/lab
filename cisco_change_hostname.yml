@@ -47,3 +47,28 @@
     - name: Print output
       debug:
         var: hostnameinfo
+
+- name: Router Hostname Demo
+  hosts: juniper
+  gather_facts: no
+  vars:
+    custom_hostname: basic
+
+  tasks:
+
+    - name: Apply the provided configuration
+      junipernetworks.junos.junos_hostname:
+        config:
+          hostname: "{{ custom_hostname }}"
+        state: merged
+
+    - name: Apply the provided configuration
+      junipernetworks.junos.junos_hostname:
+        config:
+          hostname: "{{ custom_hostname }}"
+        state: gathered
+      register: hostnameinfo
+
+    - name: Print output
+      debug:
+        var: hostnameinfo
