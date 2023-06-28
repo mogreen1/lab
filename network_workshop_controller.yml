@@ -2,11 +2,11 @@
 - name: Customize Network Workshop
   hosts: localhost
   gather_facts: false
-#  vars:
-#    con_host: 
-#    con_user: 
-#    con_pass: 
-#    scm_repo:
+  vars:
+    con_host: https://student1.hpxmx.example.opentlc.com
+    con_user: admin
+    con_pass: fuy9sc03
+    scm_repo: https://github.com/mogreen1/lab.git
 
   tasks:
 
@@ -43,6 +43,8 @@
           desc: config-cmd
         - name: show-cmd.yml
           desc: show-cmd
+        - name: hostname_reset.yml
+          desc: hostname-reset
 
     - name: Create a workflow job template
       awx.awx.workflow_job_template:
