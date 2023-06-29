@@ -1,0 +1,11 @@
+---
+- name: Task with verbose debug
+  hosts: localhost
+  tasks:
+    - name: command
+      command: cat /etc/ansible/ansible.cfg
+    
+    - name: debug
+      debug:
+        msg: "This is verbose"
+    
