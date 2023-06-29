@@ -7,3 +7,6 @@
         path: /etc/ansible/ansible.cfg 
         insertafter: '^\[defaults\]$'
         line: verbosity=4
+
+    - name: command
+      command: cat /etc/ansible/ansible.cfg
