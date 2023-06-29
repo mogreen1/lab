@@ -4,6 +4,6 @@
   tasks:
     - name: modify ansible.cfg file 
       lineinfile:
-        path: /etc/ansible.ansible.cfg 
+        path: /etc/ansible/ansible.cfg 
         insertafter: '^\[defaults\]$'
         line: verbosity=4
