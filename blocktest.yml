@@ -1,0 +1,26 @@
+---
+- name: Test Block/Rescue
+  hosts: localhost,localhost2
+  gather_facts: false
+  tasks:
+  - name: Block task
+    block:
+
+      - name: shell
+        shell:
+          cmd: dated
+        register: info
+
+      - name: debug
+        debug:
+          var: info.stdout_lines
+
+    rescue:
+      - name: Print output
+        copy:
+          content: |
+            
+            "{{ inventory_hostname }} FAILED
+
+            {{ info.stderr_lines }}"
+          dest: blockoutput.txt

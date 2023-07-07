@@ -1,0 +1,19 @@
+---
+- name: Test Block/Rescue
+  hosts: localhost2
+  gather_facts: false
+  tasks:
+  - name: Block task
+    block:
+
+      - name: Gather facts
+        setup:
+
+      - name: Print output
+        debug:
+          msg: "{{ inventory_hostname }} succeeded"
+
+    rescue:
+      - name: Print output
+        debug:
+          msg: "{{ inventory_hostname }} FAILED"
