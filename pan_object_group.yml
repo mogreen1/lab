@@ -1,6 +1,6 @@
 ---
 - name: Modify Palo Alto Firewall
-  hosts: palo.shadowman.dev
+  hosts: localhost
   connection: local
   gather_facts: false
   vars_files:
