@@ -22,9 +22,10 @@
     - name: Create or modify object group
       paloaltonetworks.panos.panos_address_group:
         provider: 
-          ip_address: "{{ palo_ip_address }}"
+          ip_address: "{{ item }}"
           username: "{{ palo_username }}"
           password: "{{ palo_password }}"
         name: 'BadGuys'
         static_value: "{{ object_name }}"
         state: 'merged'
+      loop: "{{ groups['palo_devices'] }}"
