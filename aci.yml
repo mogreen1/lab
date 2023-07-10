@@ -67,7 +67,7 @@
      cisco.aci.aci_interface_policy_leaf_policy_group:
        host: "{{ myapic }}"
        username: "{{ uname }}"
-       password: "{{pwd}}"
+       password: "{{ pwd }}"
        validate_certs: no
        policy_group: 'rhtest-vpc'
        lag_type: node
