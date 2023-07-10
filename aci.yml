@@ -1,0 +1,79 @@
+---
+- name: ACI TEST
+  hosts: localhost
+  connection: local
+  vars:
+    - mytenant: rh-tenant
+    - uname: admin
+    - pwd: '!v3G@!4@Y'
+    - myapic: sandboxapicdc.cisco.com
+    - myvrf: rh-vrf
+    - mybd: rh-bd
+
+  tasks:
+
+   - name: Add a new tenant
+     cisco.aci.aci_tenant:
+       host: "{{ myapic }}"
+       username: "{{ uname }}"
+       password: "{{ pwd }}"
+       validate_certs: no
+       tenant: "{{ mytenant }}"
+       description: Ansible test tenant
+       state: present
+     delegate_to: localhost
+
+   - name: Add a new VRF to tenant
+     cisco.aci.aci_vrf:
+       host: "{{ myapic }}"
+       username: "{{ uname }}"
+       password: "{{ pwd }}"
+       validate_certs: no
+       vrf: "{{ myvrf }}"
+       tenant: "{{ mytenant }}"
+       descr: 'RH Automation'
+       policy_control_preference: enforced
+       policy_control_direction: ingress
+       state: present
+     delegate_to: localhost
+
+   - name: Add Bridge Domain
+     cisco.aci.aci_bd:
+       host: "{{ myapic }}"
+       username: "{{ uname }}"
+       password: "{{ pwd }}"
+       validate_certs: no
+       tenant: "{{ mytenant }}"
+       bd: "{{ mybd }}"
+       mac_address: AA:BB:CC:DD:EE:FE
+       vrf: "{{ myvrf }}"
+       state: present
+     delegate_to: localhost  
+
+   - name: Create a subnet
+     cisco.aci.aci_bd_subnet:
+       host: "{{ myapic }}"
+       username: "{{ uname }}"
+       password: "{{ pwd }}"
+       validate_certs: no
+       tenant: "{{ mytenant }}"
+       bd: "{{ mybd }}"
+       gateway: 10.0.0.1
+       mask: 24
+       state: present
+     delegate_to: localhost
+
+   - name: Create a VPC Policy Group
+     cisco.aci.aci_interface_policy_leaf_policy_group:
+       host: "{{ myapic }}"
+       username: "{{ uname }}"
+       password: "{{pwd}}"
+       validate_certs: no
+       policy_group: 'rhtest-vpc'
+       lag_type: node
+       link_level_policy: 10G_Auto
+       cdp_policy: CDP_Enabled
+       lldp_policy: LLDP_Enabled
+       port_channel_policy: LACP_Enabled
+       state: present
+     delegate_to: localhost 
