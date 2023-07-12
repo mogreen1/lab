@@ -1,0 +1,10 @@
+---
+- name:
+  hosts: localhost
+  gather_facts: no
+  tasks:
+  
+  - name: with_sequence
+    ansible.builtin.debug:
+      msg: "{{ item }}"
+    with_sequence: start=0 end=4 stride=1 format=testuser_%x
