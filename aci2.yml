@@ -1,0 +1,86 @@
+---
+- name: ACI TEST
+  hosts: localhost
+  connection: local
+  vars:
+     - tenant_name: rh-tenant
+     - uname: admin
+     - pwd: '!v3G@!4@Y'
+     - apic_name: sandboxapicdc.cisco.com
+     - vrf_name: rh-vrf
+     - bd_name: rh-bd
+
+  tasks:
+
+   - name: Add a new tenant
+     cisco.aci.aci_tenant:
+       host: "{{ apic_name }}"
+       username: "{{ uname }}"
+       password: "{{ pwd }}"
+       validate_certs: no
+       tenant: "{{ item }}"
+       description: Ansible test tenant
+       state: present
+     delegate_to: localhost
+     with_sequence: start={{ beginning }} end={{ ending }} stride=1 format={{ tenant_name }}_%x
+     register: tenant_create
+   - name:
+     debug:
+      var: tenant_create
+    
+
+
+  #  - name: Add a new VRF to tenant
+  #    cisco.aci.aci_vrf:
+  #      host: "{{ apic_name }}"
+  #      username: "{{ uname }}"
+  #      password: "{{ pwd }}"
+  #      validate_certs: no
+  #      vrf: "{{ vrf_name }}"
+  #      tenant: "{{ tenant_name }}"
+  #      descr: 'RH Automation'
+  #      policy_control_preference: enforced
+  #      policy_control_direction: ingress
+  #      state: present
+  #    delegate_to: localhost
+
+  #  - name: Add Bridge Domain
+  #    cisco.aci.aci_bd:
+  #      host: "{{ apic_name }}"
+  #      username: "{{ uname }}"
+  #      password: "{{ pwd }}"
+  #      validate_certs: no
+  #      tenant: "{{ tenant_name }}"
+  #      bd: "{{ bd_name }}"
+  #      mac_address: AA:BB:CC:DD:EE:FE
+  #      vrf: "{{ vrf_name }}"
+  #      state: present
+  #    delegate_to: localhost  
+
+  #  - name: Create a subnet
+  #    cisco.aci.aci_bd_subnet:
+  #      host: "{{ apic_name }}"
+  #      username: "{{ uname }}"
+  #      password: "{{ pwd }}"
+  #      validate_certs: no
+  #      tenant: "{{ tenant_name }}"
+  #      bd: "{{ bd_name }}"
+  #      gateway: 10.0.0.1
+  #      mask: 24
+  #      state: present
+  #    delegate_to: localhost
+
+  #  - name: Create a VPC Policy Group
+  #    cisco.aci.aci_interface_policy_leaf_policy_group:
+  #      host: "{{ apic_name }}"
+  #      username: "{{ uname }}"
+  #      password: "{{ pwd }}"
+  #      validate_certs: no
+  #      policy_group: 'rhtest-vpc'
+  #      lag_type: node
+  #      link_level_policy: 10G_Auto
+  #      cdp_policy: CDP_Enabled
+  #      lldp_policy: LLDP_Enabled
+  #      port_channel_policy: LACP_Enabled
+  #      state: present
+  #    delegate_to: localhost 
