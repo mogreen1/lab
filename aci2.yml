@@ -20,13 +20,13 @@
        validate_certs: no
        tenant: "{{ item }}"
        description: Ansible test tenant
-       state: present
+       state: absent
      delegate_to: localhost
      with_sequence: start={{ beginning }} end={{ ending }} stride=1 format={{ tenant_name }}_%x
      register: tenant_create
    - name:
      debug:
-      var: tenant_create
+      var: tenant_create.results.ansible_loop_var.item[1]
     
 
 
