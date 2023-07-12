@@ -2,11 +2,11 @@
 - name: ACI TEST
   hosts: localhost
   connection: local
-  # vars:
+  vars:
   #   - tenant_name: rh-tenant
   #   - uname: admin
   #   - pwd: '!v3G@!4@Y'
-  #   - apic_name: sandboxapicdc.cisco.com
+     - apic_name: sandboxapicdc.cisco.com
   #   - vrf_name: rh-vrf
   #   - bd_name: rh-bd
 
