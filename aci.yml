@@ -15,8 +15,8 @@
    - name: Add a new tenant
      cisco.aci.aci_tenant:
        host: "{{ apic_name }}"
-       username: "{{ uname }}"
-       password: "{{ pwd }}"
+       #username: "{{ uname }}"
+       #password: "{{ pwd }}"
        validate_certs: no
        tenant: "{{ tenant_name }}"
        description: Ansible test tenant
@@ -26,8 +26,8 @@
    - name: Add a new VRF to tenant
      cisco.aci.aci_vrf:
        host: "{{ apic_name }}"
-       username: "{{ uname }}"
-       password: "{{ pwd }}"
+       #username: "{{ uname }}"
+       #password: "{{ pwd }}"
        validate_certs: no
        vrf: "{{ vrf_name }}"
        tenant: "{{ tenant_name }}"
@@ -40,8 +40,8 @@
    - name: Add Bridge Domain
      cisco.aci.aci_bd:
        host: "{{ apic_name }}"
-       username: "{{ uname }}"
-       password: "{{ pwd }}"
+       #username: "{{ uname }}"
+       #password: "{{ pwd }}"
        validate_certs: no
        tenant: "{{ tenant_name }}"
        bd: "{{ bd_name }}"
@@ -53,8 +53,8 @@
    - name: Create a subnet
      cisco.aci.aci_bd_subnet:
        host: "{{ apic_name }}"
-       username: "{{ uname }}"
-       password: "{{ pwd }}"
+       #username: "{{ uname }}"
+       #password: "{{ pwd }}"
        validate_certs: no
        tenant: "{{ tenant_name }}"
        bd: "{{ bd_name }}"
@@ -66,8 +66,8 @@
    - name: Create a VPC Policy Group
      cisco.aci.aci_interface_policy_leaf_policy_group:
        host: "{{ apic_name }}"
-       username: "{{ uname }}"
-       password: "{{ pwd }}"
+       #username: "{{ uname }}"
+       #password: "{{ pwd }}"
        validate_certs: no
        policy_group: 'rhtest-vpc'
        lag_type: node
