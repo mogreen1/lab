@@ -4,9 +4,7 @@
   connection: local
   vars_files: vault.yml
   vars:
-     - tenant_name: rh-tenant2
-     #- uname: admin
-     #- pwd: 'C1sco12345'
+     - tenant_name: rh-tenant
      - apic_name: 10.10.20.14
      - vrf_name: rh-vrf
      - bd_name: rh-bd
