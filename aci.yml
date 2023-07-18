@@ -1,5 +1,5 @@
 ---
-- name: ACI TEST
+- name: ACI Automation
   hosts: localhost
   connection: local
   vars_files: vault.yml
