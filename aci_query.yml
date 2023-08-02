@@ -1,0 +1,21 @@
+---
+- name: ACI Automation
+  hosts: localhost
+  connection: local
+  vars_files: vault.yml
+
+  tasks:
+
+   - name: Query all tenants
+     cisco.aci.aci_tenant:
+       host: "{{ apic_name }}"
+       username: "{{ uname }}"
+       password: "{{ pwd }}"
+       validate_certs: no
+       state: query
+     register: tenant_info
+     delegate_to: localhost
+
+   - name: Print tenant tenant
+     debug:
+       var: tenant_info
