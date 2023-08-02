@@ -1,6 +1,0 @@
----
-collections:
-
-- cisco.meraki
-- azure.azcollection
-- awx.awx
