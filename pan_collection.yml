@@ -1,0 +1,19 @@
+---
+- name: Modify PAN FW Config
+  hosts: localhost
+  gather_facts: false
+  connection: local
+  vars:
+    provider:
+      ip_address: "{{ ip_address }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+  
+  tasks:
+
+    - name: Import content
+      paloaltonetworks.panos.panos_import:
+       provider: '{{ provider }}'
+       category: 'content'
+       filename: '/home/dgreen/execution_environment.yml'
+

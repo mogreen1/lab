@@ -1,3 +1,4 @@
 localhost2 ansible_host=4.2.2.2
+labrtr.shadowman.dev remote_user=ios password=ios
 [palo_devices]
 palo.shadowman.dev
