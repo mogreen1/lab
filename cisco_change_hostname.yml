@@ -11,7 +11,7 @@
     - name: Apply the provided configuration
       cisco.ios.ios_hostname:
         config:
-          hostname: "{{ custom_hostname }}"
+          hostname: "{{ inventory_hostname }}-{{ custom_hostname }}"
         state: merged
 
     - name: Gather listed hostname config
@@ -34,13 +34,13 @@
     - name: Apply the provided configuration
       arista.eos.eos_hostname:
         config:
-          hostname: "{{ custom_hostname }}"
+          hostname: "{{ inventory_hostname }}-{{ custom_hostname }}"
         state: merged
 
     - name: Apply the provided configuration
       arista.eos.eos_hostname:
         config:
-          hostname: "{{ custom_hostname }}"
+          hostname: "{{ inventory_hostname }}-{{ custom_hostname }}"
         state: gathered
       register: hostnameinfo
 
@@ -59,13 +59,13 @@
     - name: Apply the provided configuration
       junipernetworks.junos.junos_hostname:
         config:
-          hostname: "{{ custom_hostname }}"
+          hostname: "{{ inventory_hostname }}-{{ custom_hostname }}"
         state: merged
 
     - name: Apply the provided configuration
       junipernetworks.junos.junos_hostname:
         config:
-          hostname: "{{ custom_hostname }}"
+          hostname: "{{ inventory_hostname }}-{{ custom_hostname }}"
         state: gathered
       register: hostnameinfo
 
