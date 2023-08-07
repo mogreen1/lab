@@ -1,7 +1,7 @@
 ---
 ##Used with networking workshop
 - name: Router Hostname Demo
-  hosts: cisco
+  hosts: cisco:arista
   gather_facts: no
   vars:
     custom_hostname: basic
