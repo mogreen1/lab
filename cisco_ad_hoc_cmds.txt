@@ -1,2 +1,4 @@
 ansible cisco -m ios_command -a "commands='show run | i hostname'"
+ansible cisco -m ios_command -a "commands='wr mem'"
 ansible cisco -m ios_config -a "commands='hostname test'"
+ansible cisco -m ios_config -a "commands='hostname {{ inventory_hostname }}'"
