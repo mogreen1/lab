@@ -3,9 +3,9 @@
   hosts: localhost
   gather_facts: false
   vars:
-    con_host: https://student1.hpxmx.example.opentlc.com
+    con_host: https://student3.fn6tm.example.opentlc.com/
     con_user: admin
-    con_pass: fuy9sc03
+    con_pass: hxhnmrqw
     scm_repo: https://github.com/mogreen1/lab.git
 
   tasks:
@@ -33,6 +33,12 @@
         credentials:
           - "Workshop Credential"
         state: "present"
+        survey_enabled: yes
+        survey_spec: >
+            {"name": "", "description": "", "spec": [{"question_name": "Please enter a
+            custom hostname.", "question_description": "", "required": true, "type":
+            "text", "variable": "custom_hostname", "min": 0, "max": 1024, "default": "",
+            "choices": "", "new_question": true}]}
         #survey_enabled: yes
         #survey_spec: "{{ lookup('file', 'my_survey.json') }}"
         controller_host: "{{ con_host }}"
@@ -53,6 +59,12 @@
         controller_host: "{{ con_host }}"
         controller_username: "{{ con_user }}"
         controller_password: "{{ con_pass }}"
+        survey_enabled: yes
+        survey_spec: >
+            {"name": "", "description": "", "spec": [{"question_name": "Please enter a
+            custom hostname.", "question_description": "", "required": true, "type":
+            "text", "variable": "custom_hostname", "min": 0, "max": 1024, "default": "",
+            "choices": "", "new_question": true}]}
         workflow_nodes:
           - identifier: Config-cmd
             unified_job_template:
