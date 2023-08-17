@@ -1,0 +1,29 @@
+---
+- name: Add MAC Address to Forescout Exemption List
+  hosts: localhost
+  connection: local
+  gather_facts: no
+
+  vars:
+    forescout_api_url: "https://forescout-api.example.com/api"
+    api_token: "your_api_token"
+    mac_address: "00:11:22:33:44:55"  # Replace with the desired MAC address
+
+  tasks:
+    - name: Add MAC Address to Exemption List
+      ansible.builtin.uri:
+        url: "{{ forescout_api_url }}/mac-exemptions"
+        method: POST
+        headers:
+          Authorization: "Bearer {{ api_token }}"
+          Content-Type: "application/json"
+        body_format: json
+        body: |
+          {
+            "mac": "{{ mac_address }}"
+          }
+        register: response
+
+    - name: Check API Response
+      debug:
+        var: response

@@ -1,0 +1,57 @@
+---
+- name: Gather system info
+  hosts: palo.shadowman.dev
+  connection: local
+  vars_files: ~/creds.yml
+  vars:
+    provider:
+      ip_address: "{{ palo_ip_address }}"
+      username: "{{ palo_username }}"
+      password: "{{ palo_password }}"
+
+  #collections:
+    #- paloaltonetworks.panos
+
+  tasks:
+
+    - name: Create Virtual Router
+      paloaltonetworks.panos.panos_virtual_router:
+        provider: '{{ provider }}'
+        name: default
+        state: gathered
+      register: virtual_router
+
+    - name: Create Virtual Router
+      paloaltonetworks.panos.panos_security_rule:
+        provider: '{{ provider }}'
+        state: gathered
+        gathered_filter: '*'
+      register: sec_rule
+
+    - name: debug module
+      debug:
+        msg: "{{ virtual_router.gathered_xml|ansible.utils.from_xml }}"
+
+
+
+    #- name: debug module
+    #  debug:
+    #    msg: "{{ sec_rule.gathered }}"
+
+    #- name: copy
+    #  copy:
+    #    content: "{{ virtual_router.gathered_xml }}"
+    #    dest: pan_info_1.xml
+
+    
+- name: Gather data from Panorama
+  paloaltonetworks.panos.panos_security_rule:
+    provider: '{{ device }}'
+    device_group: 'ANS-PFW-200-DG'
+    state: gathered
+    gathered_filter: '*'
+  register: pano_output
+
+- name: Display output
+  debug:
+    var: pano_output
