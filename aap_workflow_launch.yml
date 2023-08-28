@@ -1,6 +1,8 @@
 - name: Workflow Test
   hosts: localhost
   connection: local
+  collections:
+    - ansible.controller
   tasks:
     - name: Launch a workflow
       ansible.controller.workflow_launch:
