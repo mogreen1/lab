@@ -4,5 +4,5 @@
   tasks:
     - name: Launch a workflow
       ansible.controller.workflow_launch:
-      workflow_template: "Network Build Device Report"
+      workflow_template: "dgreen test workflow"
     
