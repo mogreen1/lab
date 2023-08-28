@@ -6,5 +6,5 @@
   tasks:
     - name: Launch a workflow
       ansible.controller.workflow_launch:
-      workflow_template: "dgreen test workflow"
+        workflow_template: "dgreen test workflow"
     
