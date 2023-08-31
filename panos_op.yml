@@ -1,0 +1,49 @@
+---
+- name: Gather system info
+  hosts: pano
+  connection: local
+  vars_files: ~/creds.yml
+  vars:
+    provider:
+      ip_address: "{{ pano_ip_address }}"
+      username: "{{ palo_username }}"
+      password: "{{ pano_password }}"
+
+  #collections:
+    #- paloaltonetworks.panos
+
+  tasks:
+
+    - name: show list of all interfaces
+      paloaltonetworks.panos.panos_op:
+        provider: '{{ provider }}'
+        cmd: 'show devicegroups'
+      register: panosopp
+    
+    - name:
+      copy:
+        content: "{{ panosopp.stdout_xml|ansible.utils.from_xml }}"
+        dest: pan_config_data
+      delegate_to: localhost
+
+    - name: Remove 'at' symbol in key names
+      ansible.builtin.replace:
+        path: pan_config_data
+        regexp: '@name'
+        replace: 'name'
+
+- name: Manipulate JSON
+  hosts: localhost
+  vars:
+    input: "{{ lookup('file','pan_config_data') | from_json }}"
+
+  tasks:
+
+   - name: Create Dictionary
+     set_fact:
+       #stuff: "{{ input.response.result.devicegroups.entry.0.devices.entry.serial }}"
+       stuff: "{{ input.response.result.devicegroups.entry.0}}"
+
+   - name: Print out interfaces 
+     debug:
+       msg: "{{ lookup('ansible.utils.to_paths'), stuff) }}"

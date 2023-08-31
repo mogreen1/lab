@@ -1,0 +1,26 @@
+---
+- name: Gather DG Info
+  hosts: pano
+  connection: local
+  vars_files: ~/creds.yml
+  vars:
+    provider:
+      ip_address: "{{ pano_ip_address }}"
+      username: "{{ palo_username }}"
+      password: "{{ pano_password }}"
+
+  #collections:
+    #- paloaltonetworks.panos
+
+  tasks:
+    - name: Create device group
+      paloaltonetworks.panos.panos_device_group:
+        provider: '{{ provider }}'
+        state: gathered
+        name: 'Shadow2'
+        gathered_filter: '*'
+      register: pan_groups
+    
+    - name: Display PAN pan pan groups
+      debug:
+        var: pan_groups

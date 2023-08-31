@@ -1,0 +1,27 @@
+---
+- name: Gather system info
+  hosts: pano.shadowman.dev
+  connection: local
+  vars_files: ~/creds.yml
+  vars:
+    provider:
+      ip_address: "{{ pano_ip_address }}"
+      username: "{{ palo_username }}"
+      password: "{{ pano_password }}"
+
+  #collections:
+    #- paloaltonetworks.panos
+
+  tasks:
+
+    - name: Gather data from Panorama
+      paloaltonetworks.panos.panos_security_rule:
+        provider: '{{ device }}'
+        device_group: '*'
+        state: gathered
+        gathered_filter: '*'
+      register: pano_output
+
+    - name: Display output
+      debug:
+        var: pano_output

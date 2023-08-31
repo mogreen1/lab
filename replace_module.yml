@@ -1,0 +1,10 @@
+- name: Test replace module
+  hosts: localhost
+  gather_facts: no
+  tasks:
+
+    - name: Use Replace module 
+      replace:
+        path: hellofile
+        regexp: 'hello'
+        replace: 'che77o'
