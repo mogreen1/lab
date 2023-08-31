@@ -32,8 +32,8 @@
       debug:
         msg: "{{ httpinfo.stdout_lines | to_nice_yaml }}"
 
-    - name: copy
-      copy:
-        content: "{{ httpinfo.stdout_lines }}"
-        dest: pan_info_http.xml
+    # - name: copy
+    #   copy:
+    #     content: "{{ httpinfo.stdout_lines }}"
+    #     dest: pan_info_http.xml
 
