@@ -1,0 +1,39 @@
+---
+- name: Gather system info
+  hosts: localhost
+  connection: local
+  vars_files: ~/creds.yml
+  vars:
+    provider:
+      ip_address: "{{ pano_ip_address }}"
+      username: "{{ palo_username }}"
+      password: "{{ pano_password }}"
+
+  #collections:
+    #- paloaltonetworks.panos
+
+  tasks:
+    #- name: Check that you can connect (GET) to a page and it returns a status 200
+     # ansible.builtin.uri:
+      #  url: "https://172.16.2.128/api/?key={{ pano_api_key }}&type=op&cmd=<show><dg-hierarchy></dg-hierarchy></show>"
+       # method: GET
+        #return_content: yes
+        #validate_certs: no
+      #register: httpinfo
+
+    - name: Check that you can connect (GET) to a page and it returns a status 200
+      ansible.builtin.command: "curl -k -X GET 'https://172.16.2.128/api/?key={{ pano_api_key }}&type=op&cmd=<show><dg-hierarchy></dg-hierarchy></show>'"
+        
+        #return_content: yes
+        
+      register: httpinfo
+
+    - name: debug module
+      debug:
+        msg: "{{ httpinfo.stdout_lines | to_nice_yaml }}"
+
+    - name: copy
+      copy:
+        content: "{{ httpinfo.stdout_lines }}"
+        dest: pan_info_http.xml
+
