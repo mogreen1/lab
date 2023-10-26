@@ -1,5 +1,5 @@
 ---
-- name: Configure VLANs
+- name: Configure VLANs for Arista
   hosts: arista
   gather_facts: false
 
