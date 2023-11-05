@@ -1,0 +1,51 @@
+---
+- name: Play 1
+  hosts: localhost
+  connection: local
+  vars_files: ~/creds.yml
+  vars:
+    provider:
+      ip_address: "{{ palo_ip_address }}"
+      username: "{{ palo_username }}"
+      password: "{{ palo_password }}"
+
+  tasks:
+
+    - name: 
+      paloaltonetworks.panos.panos_restart:
+        provider: '{{ provider }}'
+      notify: 
+      - check chassis ready
+
+  handlers:
+    - name: check chassis ready
+      paloaltonetworks.panos.panos_op:
+        provider: '{{ provider }}'
+        cmd: 'show chassis-ready'
+      changed_when: false
+      register: result
+      until: result is not failed and (result.stdout | from_json).response.result == 'yes'
+      retries: 30
+      delay: 60
+
+- name: Play 2
+  hosts: localhost
+  connection: local
+  vars_files: ~/creds.yml
+  vars:
+    provider:
+      ip_address: "{{ palo_ip_address }}"
+      username: "{{ palo_username }}"
+      password: "{{ palo_password }}"
+
+  tasks:
+
+    - name: check chassis ready
+      paloaltonetworks.panos.panos_op:
+        provider: '{{ provider }}'
+        cmd: 'show system info'
+      register: uptime
+    
+    - name: debug
+      debug:
+        var: uptime

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<entry name="default">
+	<interface>
+		<member>ethernet1/1</member>
+	</interface>
+	<protocol>
+		<ospf>
+			<enable>no</enable>
+		</ospf>
+		<bgp>
+			<enable>no</enable>
+			<routing-options>
+				<graceful-restart>
+					<enable>yes</enable>
+				</graceful-restart>
+			</routing-options>
+			<dampening-profile>
+				<entry name="default">
+					<enable>yes</enable>
+					<cutoff>1.25</cutoff>
+					<reuse>0.5</reuse>
+					<max-hold-time>900</max-hold-time>
+					<decay-half-life-reachable>300</decay-half-life-reachable>
+					<decay-half-life-unreachable>900</decay-half-life-unreachable>
+				</entry>
+			</dampening-profile>
+		</bgp>
+		<rip>
+			<enable>no</enable>
+		</rip>
+	</protocol>
+</entry>

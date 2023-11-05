@@ -1,0 +1,22 @@
+- name: 
+  hosts: localhost
+  connection: local
+  vars_files: ~/creds.yml
+  vars:
+    provider:
+      ip_address: "{{ palo_ip_address }}"
+      username: "{{ palo_username }}"
+      password: "{{ palo_password }}"
+
+
+  tasks:
+
+    - name: 
+      paloaltonetworks.panos.panos_op:
+        provider: '{{ provider }}'
+        cmd: "show system info"
+      register: uptime
+    
+    - name: 
+      debug:
+        var: uptime
