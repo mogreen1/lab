@@ -13,6 +13,7 @@
         ipaddress: 172.16.1.106
         validate_certs: false
       delegate_to: localhost
+      tags: server
     
     - name: Setup service group and add host
       citrix.adc.citrix_adc_servicegroup:
@@ -35,3 +36,4 @@
             - monitor_name: https
               weight: "50"
       delegate_to: localhost
+      tags: servergroup
