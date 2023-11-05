@@ -10,7 +10,7 @@
         nitro_pass: "{{ nitro_pass }}"
         state: present
         name: 'dgdownload.shadowman.dev'
-        ipaddress: "{{ ip_addr }}"
+        ipaddress: 172.16.1.106
         validate_certs: false
       delegate_to: localhost
     
