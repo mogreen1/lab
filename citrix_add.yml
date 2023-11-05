@@ -9,7 +9,7 @@
         nitro_user: "{{ nitro_user }}"
         nitro_pass: "{{ nitro_pass }}"
         state: present
-        name: "{{ i_hostname }}"
+        name: 'dgdownload.shadowman.dev'
         ipaddress: "{{ ip_addr }}"
         validate_certs: false
       delegate_to: localhost
@@ -19,14 +19,14 @@
         nsip: "{{ nsip }}"
         nitro_user: "{{ nitro_user }}"
         nitro_pass: "{{ nitro_pass }}"
-        servicegroupname: service-group-https
+        servicegroupname: dgreen-service-group-https
         maxclient: "4000"
         servicetype: TCP
         validate_certs: false
         servicemembers:
           mode: bind
           attributes:
-            - servername: "{{ i_hostname }}"
+            - servername: 'dgdownload.shadowman.dev'
               port: 443
               weight: "50"
         monitor_bindings:
