@@ -1,6 +1,6 @@
 ---
 - name: Switch Configuration
-  hosts: switch1
+  hosts: switch1,switch2
   become: yes
   gather_facts: false
   tasks:
@@ -51,7 +51,7 @@
         config:
           - name: vlan20 
             ipv4:
-              - address: 10.10.20.21/24
+              - address: "10.10.20.{{ hostbit }}/24"
         state: replaced
     - name: Enable SVI 
       cisco.ios.ios_interfaces:
