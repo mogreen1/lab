@@ -1,7 +1,7 @@
 ---
 #Used with networking workshop
 - name: Router Hostname Demo
-  hosts: switch1
+  hosts: cisco
   gather_facts: no
 
   tasks:
