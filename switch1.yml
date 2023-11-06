@@ -1,0 +1,61 @@
+---
+- name: Switch Configuration
+  hosts: switch1
+  become: yes
+  gather_facts: false
+  tasks:
+    - name: SNMP Config 
+      cisco.ios.ios_snmp_server:
+        config:
+          communities:
+            - name: READWRITE
+              rw: yes
+      tags: snmp
+     
+    - name: VLAN Config
+      cisco.ios.ios_vlans:
+        config:
+          - name: Data 
+            vlan_id: 10
+            state: active
+          - name: Voice 
+            vlan_id: 20
+            state: active
+          - name: Guest 
+            vlan_id: 99
+            state: active
+      tags: vlan		
+
+    - name: Trunk Port Config 
+      cisco.ios.ios_l2_interfaces:
+        config:
+          - name: GigabitEthernet1/3
+            trunk:
+              encapsulation: dot1q     
+      tags: trunk		
+    
+    - name: Trunk Port Config 
+      cisco.ios.ios_l2_interfaces:
+        config:
+          - name: GigabitEthernet1/3
+            mode: trunk
+            trunk:
+              allowed_vlans: 20
+              native_vlan: 20
+              encapsulation: dot1q
+        state: replaced      
+      tags: trunk
+    
+    - name: Create SVI 
+      cisco.ios.ios_l3_interfaces:
+        config:
+          - name: vlan20 
+            ipv4:
+              - address: 10.10.20.21/24
+        state: replaced
+    - name: Enable SVI 
+      cisco.ios.ios_interfaces:
+        config:
+          - name: VLAN20 
+            description: Configured and Merged by Ansible Network
+            enabled: true
