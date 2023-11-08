@@ -4,7 +4,7 @@
   become: no
   gather_facts: false
   tasks:
-
+#11-7-23 need to get an EE setup with the validated content
     - name: Network Resource Manager
       ansible.builtin.include_role:
         name: resource_manager
