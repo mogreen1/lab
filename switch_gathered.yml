@@ -1,0 +1,57 @@
+---
+- name: Switch Configuration
+  hosts: switch1,switch2
+  become: yes
+  gather_facts: false
+  tasks:
+    - name: SNMP Config 
+      cisco.ios.ios_snmp_server:
+        config:
+        state: gathered
+      tags: snmp
+      register: snmpinfo
+    - name:
+      debug:
+        var: snmpinfo
+     
+    - name: VLAN Config
+      cisco.ios.ios_vlans:
+        config:
+        state: gathered
+      tags: vlan	
+      register: vlaninfo	
+
+    - name:
+      debug:
+        var: vlaninfo
+
+    - name: Trunk Port Config 
+      cisco.ios.ios_l2_interfaces:
+        config:
+        state: gathered    
+      tags: trunk		
+    
+    - name: Trunk Port Config 
+      cisco.ios.ios_l2_interfaces:
+        config:
+        state: gathered   
+      tags: trunk
+      register: trunkinfo
+  
+    - name:
+      debug:
+        var: trunkinfo
+    
+    - name: Create SVI 
+      cisco.ios.ios_l3_interfaces:
+        config:
+        state: gathered
+      register: sviinfo
+    - name:
+      debug:
+        var: sviinfo
+    - name: Enable SVI 
+      cisco.ios.ios_interfaces:
+        config:
+        state: gathered
+    
