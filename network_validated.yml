@@ -1,0 +1,12 @@
+---
+- name: Switch Configuration
+  hosts: switch1,switch2
+  become: no
+  gather_facts: false
+  tasks:
+
+    - name: Network Resource Manager
+      ansible.builtin.include_role:
+        name: resource_manager
+      vars:
+        action: list
