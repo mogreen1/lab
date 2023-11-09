@@ -46,7 +46,7 @@
     
     - name: Raw Commands 
       cisco.ios.ios_config:
-        replace:
+        lines:
           - no interface Vlan20
         
 
