@@ -1,0 +1,9 @@
+---
+- name: template
+  hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: Template a file to /etc/file.conf
+      ansible.builtin.template:
+        src: ~/lab/switch_template.j2
+        dest: ~/lab/routerconfig.txt
