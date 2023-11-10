@@ -24,6 +24,7 @@
           - name: Guest 
             vlan_id: 99
             state: active
+        state: merged
       tags: vlan		
 
     - name: Trunk Port Config 
