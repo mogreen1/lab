@@ -1,0 +1,19 @@
+---
+- name: AAP Test 
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  vars_files: ~/creds.yml
+
+  tasks:
+    - name: Export controller info
+      ansible.controller.export:
+        #controller_host: "{{ con_host }}" 
+        #controller_username: "{{ con_user }}"
+        #controller_password: "{{ con_pass }}" 
+        all: True
+        validate_certs: no
+      register: export_content
+
+    - debug:
+        var: export_content
