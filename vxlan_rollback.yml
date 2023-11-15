@@ -12,14 +12,9 @@
         parents: interface nve1
 
     - name: remove SVI
-      cisco.nxos.nxos_l3_interfaces:
+      cisco.nxos.nxos_interfaces:
         config:
           - name: "vlan{{ vlan_id }}"
-            redirects: false
-            ipv4:
-              - address: "{{ svi_address }}/24"
-                tag: "{{ vlan_id }}"
-            ipv6_redirects: false
         state: deleted
 
     - name: remove VLAN
