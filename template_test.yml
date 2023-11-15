@@ -1,9 +1,11 @@
 ---
-- name: template
-  hosts: localhost
+- name: Template Test
+  hosts: cisco
   gather_facts: no
   tasks:
-    - name: Template a file to /etc/file.conf
+    - name: 
       ansible.builtin.template:
         src: ~/lab/switch_template.j2
-        dest: ~/lab/routerconfig.txt
+        dest: ~/lab/{{ inventory_hostname }}_routerconfig.txt
+      delegate_to: localhost
+  

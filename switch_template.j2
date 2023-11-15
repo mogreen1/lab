@@ -3,9 +3,7 @@ service timestamps log datetime msec
 no service password-encryption
 service compress-config
 !
-{% for host in groups['cisco'] %}
-hostname {{ host }}
-{% endfor %}
+hostname {{ inventory_hostname }}
 !
 boot-start-marker
 boot-end-marker
@@ -84,9 +82,7 @@ interface GigabitEthernet1/3
 interface Vlan1
  ip address 172.16.5.23 255.255.255.0
 interface Vlan20
-{% for host in groups['cisco'] %} 255.255.255.0 
- ip address 10.10.20.{{ hostvars[host]['hostbit']}}
-{% endfor %}
+ ip address 10.10.20.{{ hostvars[inventory_hostname]['hostbit']}} 255.255.255.0
 
  
 !
