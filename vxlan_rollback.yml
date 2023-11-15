@@ -12,11 +12,10 @@
         parents: interface nve1
 
     - name: remove SVI
-      cisco.nxos.nxos_interfaces:
-        config:
-          - name: "vlan{{ vlan_id }}"
-        state: deleted
-
+      cisco.nxos.nxos_config:
+        lines:
+        - no interface Vlan{{ vlan_id }}
+        
     - name: remove VLAN
       cisco.nxos.nxos_vlans:
         config:
