@@ -1,0 +1,12 @@
+---
+- name: remove VXLAN configuration
+  hosts: all
+  gather_facts: no
+
+  tasks:
+
+    - name: remove VNI
+      cisco.nxos.nxos_config:
+        lines:
+        - no member vni {{ vni_number }}
+        parents: interface nve1

@@ -1,0 +1,32 @@
+---
+- name: remove VXLAN configuration
+  hosts: all
+  gather_facts: no
+
+  tasks:
+
+    - name: remove VNI
+      cisco.nxos.nxos_config:
+        lines:
+        - no member vni {{ vni_number }}
+        parents: interface nve1
+
+    - name: remove SVI
+      cisco.nxos.nxos_l3_interfaces:
+        config:
+          - name: "vlan{{ vlan_id }}"
+            redirects: false
+            ipv4:
+              - address: "{{ svi_address }}/24"
+                tag: "{{ vlan_id }}"
+            ipv6_redirects: false
+        state: deleted
+
+    - name: remove VLAN
+      cisco.nxos.nxos_vlans:
+        config:
+          - vlan_id:  "{{ vlan_id }}"
+            name: "{{ vlan_name }}"
+            mapped_vni: "{{ vni_number }}"
+        state: deleted
+
