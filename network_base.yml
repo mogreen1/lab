@@ -1,0 +1,28 @@
+---
+- hosts: ios
+  gather_facts: true
+  tasks:
+  - name: Network Resource Manager
+    ansible.builtin.include_role:
+      name: network.base.resource_manager
+    vars:
+      operation: persist
+      ansible_network_os: cisco.ios.ios
+      resources:
+        - 'all'
+      data_store:
+        local: "configs"
+
+- hosts: nxos
+  gather_facts: true
+  tasks:
+  - name: Network Resource Manager
+    ansible.builtin.include_role:
+      name: network.base.resource_manager
+    vars:
+      operation: persist
+      ansible_network_os: cisco.nxos.nxos
+      resources:
+        - 'all'
+      data_store:
+        local: "configs"
