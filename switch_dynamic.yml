@@ -1,0 +1,56 @@
+---
+- name: Switch Configuration
+  hosts: switch1,switch2
+  become: yes
+  gather_facts: false
+  tasks:
+    - name: SNMP Config 
+      cisco.ios.ios_snmp_server:
+        config:
+          communities:
+            - name: "{{ snmp_comm | default(READWRITE) }}"
+              rw: "{{ snmp_enable | default(yes) }}"
+      tags: snmp
+     
+    - name: VLAN Config
+      cisco.ios.ios_vlans:
+        config:
+          - name: "{{ vlan_name }}" 
+            vlan_id: "{{ vlan_id | default(10) }}"
+            state: active
+        state: merged
+      tags: vlan		
+
+    - name: Trunk Port Config 
+      cisco.ios.ios_l2_interfaces:
+        config:
+          - name: GigabitEthernet1/3
+            trunk:
+              encapsulation: dot1q     
+      tags: trunk		
+    
+    - name: Trunk Port Config 
+      cisco.ios.ios_l2_interfaces:
+        config:
+          - name: GigabitEthernet1/3
+            mode: trunk
+            trunk:
+              allowed_vlans: "{{ vlan_id }}"
+              native_vlan: "{{ vlan_id }}"
+              encapsulation: dot1q
+        state: replaced      
+      tags: trunk
+    
+    - name: Create SVI 
+      cisco.ios.ios_l3_interfaces:
+        config:
+          - name: "vlan{{ vlan_id }}" 
+            ipv4:
+              - address: "10.10.20.{{ hostbit }}/24"
+        state: replaced
+    - name: Enable SVI 
+      cisco.ios.ios_interfaces:
+        config:
+          - name: "VLAN{{ vlan_id }}" 
+            description: Configured and Merged by Ansible Network
+            enabled: true
