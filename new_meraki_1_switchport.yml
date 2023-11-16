@@ -1,0 +1,22 @@
+---
+- name: Modify Meraki configuration
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  vars_files:
+    - vault.yml
+  tasks:
+
+
+    - name: Modify a switchport
+      cisco.meraki.devices_switch_ports:
+        auth_key: "{{ auth_key }}"
+        state: present
+        serial: "{{ serial_number }}"
+        enabled: "{{ port_status }}"
+        number: "{{ port_number }}"
+        name: "{{ port_name }}"
+        vlan: "{{ vlan_number }}"
+        type: "{{ port_type }}"
+      delegate_to: localhost
+      
