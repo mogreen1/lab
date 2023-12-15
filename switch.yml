@@ -1,6 +1,6 @@
 ---
 - name: Switch Configuration
-  hosts: switch1,switch2
+  hosts: "{{ hostinfo }}"
   become: yes
   gather_facts: false
   tasks:
