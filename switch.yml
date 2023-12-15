@@ -1,6 +1,6 @@
 ---
 - name: Switch Configuration
-  hosts: "{{ event.payload.hostinfo }}"
+  hosts: "{{ ansible_eda.event.payload.hostinfo }}"
   become: yes
   gather_facts: false
   tasks:
