@@ -16,3 +16,6 @@
         state: present
         productTypes:
           - switch
+          - wireless
+          - appliance
+          - camera
