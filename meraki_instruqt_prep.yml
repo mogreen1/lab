@@ -1,0 +1,12 @@
+git clone http://gitea:3000/student/meraki_getting_started.git
+git config --global user.email "student@ansible.com"
+git config --global user.name "Student"
+
+fields:
+  - id: MERAKI_KEY
+    type: string
+    label: Meraki Dashboard API key
+    secret: true
+
+extra_vars:
+  meraki_key: '{{ MERAKI_KEY }}'

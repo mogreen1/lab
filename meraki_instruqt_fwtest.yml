@@ -15,24 +15,12 @@
         filtered_networks: "{{ result.meraki_response | selectattr('productTypes', 'contains', 'appliance') | list }}"
       register: network_id_get
 
-    - name: Gather Network Ids
+    - name: Gather All Meraki Network Names
       set_fact:
         network_ids: "{{ filtered_networks | selectattr('id', 'defined') | map(attribute='id') | list }}"
     
+    - name: Print
+      debug:
+        var: network_ids
     ############## Add tasks below
-
-    - name: Update IP rules
-      cisco.meraki.networks_appliance_firewall_l3_firewall_rules:
-        meraki_api_key: "{{ meraki_key }}"
-        state: present
-        networkId: "{{ item }}"
-        rules:
-          - comment: Deny Traffic to 4.2.2.2
-            destCidr: 4.2.2.2
-            destPort: Any
-            policy: deny
-            protocol: Any
-            srcCidr: Any
-            srcPort: Any
-            syslogEnabled: false
-      loop: "{{ network_ids }}"
+    
