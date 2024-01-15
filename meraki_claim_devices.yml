@@ -1,0 +1,14 @@
+---
+- name: Claim Devices
+  hosts: localhost
+  vars:
+    meraki_api_key: "{{ meraki_key }}"
+    org_id: "{{ org_id }}"
+    
+  tasks:
+  
+    - name: Claim Devices
+      cisco.meraki.organizations_inventory_claim:
+        meraki_api_key: "{{ meraki_key }}"
+        organizationId: "{{ org_id }}"
+        serials: "serial_nums"
