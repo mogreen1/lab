@@ -16,7 +16,7 @@
       cisco.ios.ios_vlans:
         config:
           - vlan_id: "{{ vlan_id }}"
-        state: rendered
+        state: deleted
       tags: vlan		
 
     - name: Trunk Port Config 
