@@ -7,17 +7,22 @@
     - vault.yml
   tasks:
 
+    - name: Block start
+      block: 
+        - name: Modify a switchport
+          meraki_switchport:
+            auth_key: "{{ auth_key }}"
+            state: present
+            serial: "{{ serial_number }}"
+            enabled: "{{ port_status }}"
+            number: "{{ port_number }}"
+            name: "{{ port_name }}"
+            vlan: "{{ vlan_number }}"
+            type: "{{ port_type }}"
+          delegate_to: localhost
+          when: port_number < 23
 
-    - name: Modify a switchport
-      meraki_switchport:
-        auth_key: "{{ auth_key }}"
-        state: present
-        serial: "{{ serial_number }}"
-        enabled: "{{ port_status }}"
-        number: "{{ port_number }}"
-        name: "{{ port_name }}"
-        vlan: "{{ vlan_number }}"
-        type: "{{ port_type }}"
-      delegate_to: localhost
-      when: port_number < 23
+      rescue:
+        - debug: 
+            msg: "You are not authorized to modify port {{ port_number }}."
       
