@@ -13,12 +13,11 @@
         organizationId: "{{ org_id }}"
       register: my_network_info
 
-    - debug:
-        var: my_network_info
-
     - name: Gather Network Name
       set_fact:
         my_network_id: "{{ my_network_info.meraki_response | selectattr('name', 'equalto', 'again') | map(attribute='id') | list }}"
-    
-    - debug:
-        var: my_network_id
+
+    - name: save hostname to pass to restore node in workflow
+      ansible.builtin.set_stats:
+        data:
+          dg_network_id: "{{ my_network_id }}"
