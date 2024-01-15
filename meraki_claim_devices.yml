@@ -10,5 +10,5 @@
     - name: Claim Devices
       cisco.meraki.organizations_inventory_claim:
         meraki_api_key: "{{ meraki_key }}"
-        organizationId: "{{ org_id }}"
+        organizationId: 661615
         serials: "{{ serial_nums }}"
