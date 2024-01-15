@@ -15,7 +15,7 @@
 
     - name: Gather Network Name
       set_fact:
-        my_network_id: "{{ my_network_info.meraki_response | selectattr('name', 'equalto', "{{ network_name }}") | map(attribute='id') | list }}"
+        my_network_id: "{{ my_network_info.meraki_response | selectattr('name', 'equalto', {{ network_name }}) | map(attribute='id') | list }}"
 
     - name: Make Network Id Persistent
       ansible.builtin.set_stats:
