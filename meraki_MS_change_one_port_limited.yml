@@ -20,7 +20,7 @@
             vlan: "{{ vlan_number }}"
             type: "{{ port_type }}"
           delegate_to: localhost
-          when: port_number < 23
+          #when: port_number < 23
           failed_when: port_number > 22
 
       rescue:
