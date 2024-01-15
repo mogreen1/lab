@@ -19,7 +19,7 @@
 
     - name: Gather Network Name
       set_fact:
-        network_name_id: "{{ my_network_info.data | selectattr('name', 'equalto', 'again') | map(attribute='id') | list }}"
+        network_name_id: "{{ my_network_info | selectattr('name', 'equalto', 'again') | map(attribute='id') | list }}"
     
     - debug:
         var: network_name_id
