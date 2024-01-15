@@ -9,8 +9,9 @@
 
     - name: Block start
       block: 
-        - debug:
-            msg: "Congrats, you are authorized to modify port {{ port_number }}"
+        - name: Authorization Test
+          debug:
+            msg: ''
           failed_when: port_number > 24
 
         - name: Modify a switchport
