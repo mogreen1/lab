@@ -21,7 +21,7 @@
             type: "{{ port_type }}"
           delegate_to: localhost
           #when: port_number < 23
-          failed_when: port_number > 22
+          failed_when: port_number > 24
 
       rescue:
         - debug: 
