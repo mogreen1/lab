@@ -1,0 +1,33 @@
+---
+- name: Claim Devices
+  gather_facts: false
+  connection: local
+  hosts: localhost
+
+  vars_files:
+    - vault.yml
+
+  vars:
+    base_url: "https://api.meraki.com/api/v1"
+    meraki_headers:
+      Content-Type: "application/json"
+      X-Cisco-Meraki-API-Key: "{{ auth_key }}"
+
+  tasks:
+
+    - name: Claim Devices
+      ansible.builtin.uri:
+        url: "{{ base_url }}/organizations/{{ org_id }}/inventory/claim"
+        method: PUT
+        headers: "{{ meraki_headers }}"
+        follow_redirects: all
+        body_format: json
+        body:
+          serials: "{{ serial_nums }}"
+      delegate_to: localhost
+    
+
+
+
+          
+        
