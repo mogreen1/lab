@@ -10,5 +10,5 @@
     - name: Claim Devices to Network
       cisco.meraki.networks_devices_claim:
         meraki_api_key: "{{ meraki_key }}"
-        networkId: "{{ dg_network_id }}"
+        networkId: "{{ network_name }}"
         serials: "{{ serial_nums }}"
