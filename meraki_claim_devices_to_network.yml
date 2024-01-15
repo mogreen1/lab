@@ -11,4 +11,4 @@
       cisco.meraki.networks_devices_claim:
         meraki_api_key: "{{ meraki_key }}"
         networkId: "{{ dg_network_id }}"
-        serials: "{{ serial_nums }}"
+        serials: 'Q2EV-QDJ4-LG23'
