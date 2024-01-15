@@ -17,3 +17,10 @@
    - name: Use Debug Module to Print Results 
      debug:
        var: merinfo
+
+   - name: Gather Network Name
+     set_fact:
+      network_name_id: "{{ merinfo.data | selectattr('name', 'equalto', 'again') | map(attribute='id') | list }}"   
+       
+   - debug:
+       var: network_name_id

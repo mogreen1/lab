@@ -1,0 +1,25 @@
+---
+- name: Get Network Id
+  hosts: localhost
+  vars:
+    meraki_api_key: "{{ meraki_key }}"
+    org_id: "{{ org_id }}"
+    network_name: "{{ network_name }}"
+    
+  tasks:
+  
+    - name: Get Network Info
+      cisco.meraki.networks_info:
+        meraki_api_key: "{{ meraki_key }}"
+        organizationId: "{{ org_id }}"
+      register: my_network_info
+
+    - debug:
+        var: my_network_info
+
+    - name: Gather Network Name
+      set_fact:
+        network_name_id: "{{ my_network_info.data | selectattr('name', 'equalto', 'again') | map(attribute='id') | list }}"
+    
+    - debug:
+        var: network_name_id
