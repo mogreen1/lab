@@ -9,6 +9,10 @@
 
     - name: Block start
       block: 
+        - debug:
+            msg: "Congrats, you are authorized to modify port {{ port_number }}"
+          failed_when: port_number > 24
+
         - name: Modify a switchport
           meraki_switchport:
             auth_key: "{{ auth_key }}"
@@ -21,9 +25,9 @@
             type: "{{ port_type }}"
           delegate_to: localhost
           #when: port_number < 23
-          failed_when: port_number > 24
+          
 
       rescue:
         - debug: 
-            msg: "You are not authorized to modify port {{ port_number }}."
+            msg: "You ARE NOT authorized to modify port {{ port_number }}."
       
