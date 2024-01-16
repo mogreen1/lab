@@ -17,11 +17,13 @@
       set_fact:
         my_network_id: "{{ my_network_info.meraki_response | selectattr('name', 'equalto', network_name ) | map(attribute='id') | list }}"
 
-    - set_fact:
+    - name: Gather Network Id
+      set_fact:
         dg_network_id1: "{{ item }}"
       loop: "{{ my_network_id }}"
     
-    - debug:
+    - name: Print Info
+      debug:
         var: dg_network_id1
 
     - name: Make Network Id Persistent
