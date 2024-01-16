@@ -17,7 +17,10 @@
       set_fact:
         my_network_id: "{{ my_network_info.meraki_response | selectattr('name', 'equalto', network_name ) | map(attribute='id') | string }}"
 
+    - debug:
+        var: my_network_id
+
     - name: Make Network Id Persistent
       ansible.builtin.set_stats:
         data:
-          dg_network_id: "{{ my_network_id }}"
+          dg_network_id: "{{ my_network_id.0 }}"
