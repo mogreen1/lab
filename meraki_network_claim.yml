@@ -17,7 +17,7 @@
 
     - name: Claim Devices
       ansible.builtin.uri:
-        url: "{{ base_url }}/networks/L_711005791171150460/devices/claim"
+        url: "{{ base_url }}/networks/{{ dg_network_id }}/devices/claim"
         method: POST
         headers: "{{ meraki_headers }}"
         follow_redirects: all
