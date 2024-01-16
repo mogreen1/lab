@@ -23,4 +23,4 @@
     - name: Make Network Id Persistent
       ansible.builtin.set_stats:
         data:
-          dg_network_id: "{{ my_network_id.0 }}"
+          dg_network_id: "{{ my_network_id | to_yaml }}"
