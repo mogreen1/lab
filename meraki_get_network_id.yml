@@ -15,7 +15,7 @@
 
     - name: Gather Network Name
       set_fact:
-        my_network_id: "{{ my_network_info.meraki_response | selectattr('name', 'equalto', network_name ) | map(attribute='id') | string }}"
+        my_network_id: "{{ my_network_info.meraki_response | selectattr('name', 'equalto', network_name ) | map(attribute='id') | list }}"
 
     - debug:
         msg: "{{ my_network_id | to_yaml }}"
