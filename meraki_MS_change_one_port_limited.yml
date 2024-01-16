@@ -11,9 +11,8 @@
       block: 
         - name: Authorization Test
           debug:
-            msg: 'You are authorized.'
+            msg: ''
           #when: port_number < 25
-          no_log: true
           failed_when: port_number > 24
 
         - name: Modify a switchport
