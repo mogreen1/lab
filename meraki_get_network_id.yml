@@ -19,7 +19,7 @@
 
     - set_fact:
         dg_network_id1: "{{ item }}"
-      loop: "{{ lookup('my_network_id', 'all', wantlist=True) }}
+      loop: "{{ lookup('my_network_id', 'all', wantlist=True) }}"
     
     - debug:
         var: dg_network_id1
