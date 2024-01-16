@@ -19,7 +19,7 @@
 
     - set_fact:
         dg_network_id1: "{{ item }}"
-      loop: my_network_id
+      loop: "{{ query('my_network_id', 'all') }}"
     
     - debug:
         var: dg_network_id1
