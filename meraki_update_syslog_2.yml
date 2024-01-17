@@ -10,7 +10,7 @@
    - name: Query Meraki Org for All Networks 
      cisco.meraki.networks_info:
        meraki_api_key: "{{ auth_key }}"
-       org_id: "{{ org_id }}"
+       organizationId: "{{ org_id }}"
        #state: query
      delegate_to: localhost 
      register: merinfo
@@ -23,7 +23,7 @@
      cisco.meraki.networks_syslog_servers:
        meraki_api_key: "{{ auth_key }}"
        state: present
-       org_id: "{{ org_id }}" 
+       organizationId: "{{ org_id }}"
        net_name: "{{ item }}"
        servers:
          - host: "{{ syslog_ip_1 }}"
