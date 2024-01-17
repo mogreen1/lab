@@ -18,18 +18,22 @@
    - name: Gather All Meraki Network Names
      set_fact:
        network_names: "{{ merinfo.meraki_response | selectattr('name', 'defined') | map(attribute='name') | list }}"
-
+   
+   - name: Gather Network Ids
+     set_fact:
+       network_ids: "{{ network_names | selectattr('id', 'defined') | map(attribute='id') | list }}"
+   
    - name: Update Syslog Servers for All Networks
      cisco.meraki.networks_syslog_servers:
        meraki_api_key: "{{ auth_key }}"
        state: present
        organizationId: "{{ org_id }}"
-       net_name: "{{ item }}"
+       networkId: "{{ item }}"
        servers:
          - host: "{{ syslog_ip_1 }}"
            port: "{{ syslog_port_1 }}"
            roles:
              - Flows
      delegate_to: localhost
-     loop: "{{ network_names }}" 
+     loop: "{{ network_ids }}" 
 
