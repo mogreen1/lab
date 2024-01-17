@@ -16,14 +16,14 @@
      register: merinfo
    - debug:
        var: merinfo
-       
+
    - name: Gather All Meraki Network Names
      set_fact:
        network_names: "{{ merinfo.meraki_response | selectattr('name', 'defined') | map(attribute='name') | list }}"
    
    - name: Gather Network Ids
      set_fact:
-       network_ids: "{{ network_names | selectattr('id', 'defined') | map(attribute='id') | list }}"
+       network_ids: "{{ merinfo.meraki_response | selectattr('id', 'defined') | map(attribute='id') | list }}"
    
    - name: Update Syslog Servers for All Networks
      cisco.meraki.networks_syslog_servers:
