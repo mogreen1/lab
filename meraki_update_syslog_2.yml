@@ -14,7 +14,9 @@
        #state: query
      delegate_to: localhost 
      register: merinfo
-    
+   - debug:
+       var: merinfo
+       
    - name: Gather All Meraki Network Names
      set_fact:
        network_names: "{{ merinfo.meraki_response | selectattr('name', 'defined') | map(attribute='name') | list }}"
