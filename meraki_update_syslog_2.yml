@@ -1,0 +1,35 @@
+---
+- name: Play 1 
+  hosts: localhost
+  gather_facts: false
+  vars_files:
+    - vault.yml
+  
+  tasks:
+
+   - name: Query Meraki Org for All Networks 
+     cisco.meraki.networks_info:
+       auth_key: "{{ auth_key }}"
+       org_id: "{{ org_id }}"
+       #state: query
+     delegate_to: localhost 
+     register: merinfo
+    
+   - name: Gather All Meraki Network Names
+     set_fact:
+       network_names: "{{ merinfo.meraki_response | selectattr('name', 'defined') | map(attribute='name') | list }}"
+
+   - name: Update Syslog Servers for All Networks
+     cisco.meraki.networks_syslog_servers:
+       auth_key: "{{ auth_key }}"
+       state: present
+       org_id: "{{ org_id }}" 
+       net_name: "{{ item }}"
+       servers:
+         - host: "{{ syslog_ip_1 }}"
+           port: "{{ syslog_port_1 }}"
+           roles:
+             - Flows
+     delegate_to: localhost
+     loop: "{{ network_names }}" 
+
