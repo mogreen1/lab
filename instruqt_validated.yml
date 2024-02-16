@@ -1,0 +1,10 @@
+---
+- name: Add user to router
+  hosts: network
+  gather_facts: true
+  tasks:
+
+    - name: Test
+      cisco.ios.ios_config:
+        commands:
+          -  show run | i hostname
