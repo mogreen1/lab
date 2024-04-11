@@ -1,0 +1,15 @@
+---
+- name: Run Meraki Throughput Test
+  hosts: localhost
+  vars:
+    meraki_api_key: "{{ meraki_key }}"
+    org_id: "{{ org_id }}"
+    network_name: "{{ network_name }}"
+    
+  tasks:
+  
+    - name: Test Throughput
+      cisco.meraki.devices_live_tools_throughput_test:
+        meraki_api_key: "{{ meraki_key }}"
+        serial: "{{ my_serial }}"
+        state: present
