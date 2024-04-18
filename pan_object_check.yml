@@ -1,0 +1,42 @@
+---
+- name: Check to see if object already exists
+  hosts: <palo fqdn>
+  connection: local
+  vars_files: ~/creds.yml
+  vars:
+    pre_object_name: []
+    pre_group_name: []
+    provider:
+      ip_address: "{{ palo_ip_address }}"
+      username: "{{ palo_username }}"
+      password: "{{ palo_password }}"
+
+  tasks:
+
+    - name:  Gather all objects
+      paloaltonetworks.panos.panos_address_object:
+        provider: '{{ provider }}'
+        state: gathered
+        gathered_filter: '*'
+      register: all_pan_objects
+
+    - name:  Gather all groups
+      paloaltonetworks.panos.panos_address_group:
+        provider: '{{ provider }}'
+        state: gathered
+        gathered_filter: '*'
+      register: all_pan_groups
+      
+    - name: Get pre-existing object name
+      set_fact: 
+        pre_object_name: "{{ pre_object_name + [ item.name ] }}"
+      loop: "{{ all_pan_objects.gathered }}"
+      when: item.value == object_ip
+
+    - name: Print objects
+      debug: 
+        msg: "[ {{ object_ip }} ] associated objects: {{ pre_object_name }}"
+
+    - name: Get associated group info
+      include_tasks: inner_object_loop.yml
+      loop: "{{ pre_object_name }}"

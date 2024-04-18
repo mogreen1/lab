@@ -1,0 +1,13 @@
+    - name: Gather matching groups
+      set_fact:
+        filter_pan_groups: "{{ all_pan_groups.gathered | selectattr( 'static_value', 'contains', item ) | map(attribute='name') | list }}"   
+    
+    - name: Print Group info
+      debug:
+        msg: " [ {{ item }} ] associated address group(s) {{ filter_pan_groups }}" 
+      when: filter_pan_groups | length > 0
+    
+    - name: Print Group info
+      debug:
+        msg: "[ {{ item }} ] has no associated address group(s)." 
+      when: filter_pan_groups | length == 0

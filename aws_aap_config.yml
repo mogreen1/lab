@@ -1,0 +1,54 @@
+---
+- name: Quick AAP VM Config
+  hosts: lab_db,lab_ac,lab_pah,lab_eda
+  gather_facts: no
+  become: no
+  vars_files: vault.yml
+  tasks:
+    - name: Disable RHUI
+      ansible.builtin.command: sudo -i mv /etc/yum.repos.d/redhat-rhui-client-config.repo /etc/yum.repos.d/redhat-rhui-client-config.repo.back
+      ignore_errors: yes
+      no_log: true
+
+    - name: Disable RHUI
+      ansible.builtin.command: sudo -i mv /etc/yum.repos.d/redhat-rhui.repo /etc/yum.repos.d/redhat-rhui.repo.back
+      ignore_errors: yes
+      no_log: true
+
+    - name: Manage Repos
+      ansible.builtin.command: sudo -i subscription-manager config --rhsm.manage_repos=1
+
+    - name: Register System
+      ansible.builtin.command: sudo -i subscription-manager register --username={{ rusername }} --password={{rpassword}}
+      ignore_errors: yes
+      no_log: true
+
+    - name: Assign Infra sub
+      ansible.builtin.command: sudo -i subscription-manager attach --pool=<POOL_ID>
+      ignore_errors: yes
+      no_log: true
+    
+    - name: Assign AAP sub
+      ansible.builtin.command: sudo -i subscription-manager attach --pool=<POOL_ID>
+      ignore_errors: yes
+      no_log: true
+
+    - name: Enable AAP Repo
+      ansible.builtin.command: sudo -i subscription-manager repos --enable ansible-automation-platform-2.4-for-rhel-8-x86_64-rpms
+      ignore_errors: yes
+      no_log: true
+
+
+    - name: Yum Install
+      become: yes
+      yum:
+        name:
+          - tree
+          - vim
+          - wget
+        state: present
+
+
+
+
+    

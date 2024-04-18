@@ -1,0 +1,14 @@
+---
+- name: Quick AAP VM Config
+  hosts: aws1,aws2,aws3
+  gather_facts: no
+  become: no
+  #vars_files: vault.yml
+  tasks:
+    - name: Clean System
+      ansible.builtin.command: sudo -i subscription-manager clean
+      ignore_errors: yes
+      no_log: true
+
+
+    

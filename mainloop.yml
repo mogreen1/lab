@@ -1,0 +1,13 @@
+---
+- name: Nested loop test
+  hosts: localhost
+  gather_facts: no
+  tasks:
+
+    - include_tasks: innerloop.yml
+      loop:
+        - 1
+        - 2
+        - 3
+      loop_control:
+        loop_var: outer_item

@@ -1,0 +1,57 @@
+---
+- name: Check to see if object already exists
+  hosts: <palo fqdn>
+  connection: local
+  vars_files: ~/creds.yml
+  vars:
+    pre_object_name: []
+    provider:
+      ip_address: "{{ palo_ip_address }}"
+      username: "{{ palo_username }}"
+      password: "{{ palo_password }}"
+
+  tasks:
+
+    - name:  Gather all objects
+      paloaltonetworks.panos.panos_address_object:
+        provider: '{{ provider }}'
+        state: gathered
+        gathered_filter: '*'
+      register: all_pan_objects
+
+    - name: Task Block
+      block:
+        - name: Get pre-existing object name
+          set_fact: 
+            pre_object_name: "{{ pre_object_name + [ item.name ] }}"
+          loop: "{{ all_pan_objects.gathered }}"
+          when: item.value == object_ip
+       
+    - name: Display Error Message
+      debug:
+         msg: "ERROR!!! The entry {{ object_ip }} already exists in the following object(s): {{ pre_object_name }}"
+      when: pre_object_name | length > 0
+
+    - name: Create address object
+      paloaltonetworks.panos.panos_address_object:
+        provider: 
+          ip_address: "{{ item }}"
+          username: "{{ palo_username }}"
+          password: "{{ palo_password }}"
+        name: '{{ object_name }}'
+        address_type: 'ip-netmask'
+        value: '{{ object_ip }}'
+      loop: "{{ groups['palo_devices'] }}"
+      when: pre_object_name | length == 0
+
+    - name: Create or modify object group
+      paloaltonetworks.panos.panos_address_group:
+        provider: 
+          ip_address: "{{ item }}"
+          username: "{{ palo_username }}"
+          password: "{{ palo_password }}"
+        name: 'BadGuys'
+        static_value: "{{ object_name }}"
+        state: 'merged'
+      loop: "{{ groups['palo_devices'] }}"
+      when: pre_object_name | length == 0

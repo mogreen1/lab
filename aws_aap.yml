@@ -1,0 +1,16 @@
+---
+- name: Launch Instance from template
+  hosts: localhost
+  gather_facts: false
+  vars_files: ~/creds.yml
+  vars:
+    aws_region: us-east-2
+
+  tasks:
+    - name: Launch new instance
+      amazon.aws.ec2_instance:
+        region: "{{ aws_region }}"
+        access_key: "{{ access_key }}"
+        secret_key: "{{ secret_key }}"
+        instance_type: m4.xlarge
+        state: running
