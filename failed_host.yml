@@ -1,0 +1,26 @@
+---
+- name: Create list of hosts that failed
+  hosts: switch1,switch2
+  gather_facts: yes
+  tasks:
+
+  - block:
+
+      # Intentionally failing a task here
+      - name: Intentionally Failed Task
+        fail:
+          msg: Failed intentionally
+
+    rescue:
+
+      - name: Gather additional device facts
+        cisco.ios.ios_facts:
+          gather_network_resources: l3_interfaces
+        register: l3_info
+
+      - name: Record failures in csv file
+        lineinfile:
+          path: "failure.csv"
+          line: "{{ ansible_facts['net_hostname']}},{{ l3_info.ansible_facts.ansible_network_resources.l3_interfaces[8].ipv4[0].address }},{{ ansible_facts['net_model'] }},The failure occurred while executing the following task: {{ ansible_failed_task['name'] }}"
+          create: yes
+        delegate_to: localhost  
