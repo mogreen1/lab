@@ -2,14 +2,61 @@
 - name: Run Meraki Throughput Test
   hosts: localhost
   vars:
-    meraki_api_key: "{{ meraki_key }}"
+    meraki_api_key: "{{ auth_key }}"
     org_id: "{{ org_id }}"
     network_name: "{{ network_name }}"
+  vars_files: ~/creds.yml
     
   tasks:
   
     - name: Test Throughput
       cisco.meraki.devices_live_tools_throughput_test:
-        meraki_api_key: "{{ meraki_key }}"
+        meraki_api_key: "{{ auth_key }}"
         serial: "{{ my_serial }}"
         state: present
+      register: meraki_tput
+    
+    - debug:
+        var: meraki_tput
+
+- name: Play 2
+  gather_facts: false
+  connection: local
+  hosts: localhost
+
+  vars_files: ~/creds.yml
+
+  vars:
+    base_url: "https://api.meraki.com/api/v1"
+    meraki_headers:
+      Content-Type: "application/json"
+      X-Cisco-Meraki-API-Key: "{{ auth_key }}"
+
+
+  tasks:
+
+     - name: URI + Meraki Dashboard
+       ansible.builtin.uri:
+         url: "{{ base_url }}/organizations"
+         method: GET
+         headers: "{{ meraki_headers }}"
+         follow_redirects: all
+          return_content: yes
+       register: meraki_info
+       delegate_to: localhost
+
+      - debug:
+          var: meraki_info
+
+    - name: Change Camera Setting
+      ansible.builtin.uri:
+        url: "{{ base_url }}/devices/{{ serial_num }}/camera/qualityAndRetention"
+        #don't forget to define serial number var in job template survey or somewhere else
+        method: PUT
+        headers: "{{ meraki_headers }}"
+        follow_redirects: all
+        body_format: json
+        body:
+          audioRecordingEnabled: false   
+          quality: High
+      delegate_to: localhost

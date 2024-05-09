@@ -1,0 +1,96 @@
+---
+- name: Lists
+  hosts: localhost
+  gather_facts: no
+  vars:
+    bands:
+      - The Beatles
+      - Led Zeppelin
+      - The Police
+      - Rush
+    bands2: ['The Beatles', 'Led Zeppelin', 'The Police', 'Rush']
+  tasks:
+
+    - name: T01 - List bands 1
+      ansible.builtin.debug:
+        msg: "{{ bands }}"
+
+    - name: T02 - List bands 2
+      ansible.builtin.debug:
+        msg: "{{ bands2 }}"
+
+    - name: T03 - Print specific element
+      ansible.builtin.debug:
+        msg: "{{ bands[0] }}"
+
+    - name: T04 - Process list using a loop
+      ansible.builtin.debug:
+        msg: "{{ item }}"
+      loop: "{{  bands }}"
+
+    - name: T05 - Add item to bands2
+      ansible.builtin.set_fact:
+        bands2: "{{ bands2 + ['Rolling Stones'] }}" 
+
+    - name: T06 - Difference between bands2 and bands
+      ansible.builtin.debug:
+        msg: "{{ bands2 | difference(bands) }}" 
+
+    - name: T07 - Show the data type of a list
+      ansible.builtin.debug:
+        msg: "{{ bands | type_debug }}"
+
+### Adapted from this page: https://www.redhat.com/sysadmin/ansible-lists-dictionaries-yaml ##
+# - name: Test lists
+#   hosts: localhost
+#   gather_facts: no
+#   tasks:
+#   vars: 
+#     band1:
+#       - No Doubt
+#       - RHCP
+#       - Nirvana
+#     band2: ['mint_condition', 'gnarls', 'isley_bros']
+#     numbers: [1,2,3]
+#   tasks:
+#     - name: Print band names
+#       debug:
+#         var: band2[1]
+
+#     - name: Creates file with band info ### Note the file will contain the relevant value WITHOUT quotes
+#       copy:
+#         content: "{{ band2[1] }}"
+#         dest: bandinfo.test
+#       delegate_to: localhost
+    
+    
+#     - name: Add item to the list
+#       set_fact:
+#         band2: "{{ band2 + ['aerosmith'] }}"
+
+#     - name: Add item to the list
+#       set_fact:
+#         numbers: "{{ numbers + [1000] }}"
+
+#     - name: Print info
+#       debug:
+#         msg: "{{ band2 }} {{ numbers }}"
+
+#     - name: 
+#       debug:
+#         msg: "{{ band1 | type_debug }}"
+
+# - name: Test dict
+#   hosts: localhost
+#   gather_facts: no
+#   tasks:
+#   vars: 
+#     guitars:
+#       good: epihone
+#       better: les_paul
+#       best: fender
+
+#   tasks:
+#     - name: Print guitar names
+#       debug:
+#         msg: "{{ guitars['best'] }} is better than {{ guitars['good'] }}"

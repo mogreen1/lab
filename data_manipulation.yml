@@ -1,0 +1,23 @@
+---
+- name:
+  hosts: localhost
+  gather_facts: no
+  vars:
+    my_letters: [A,B,C]
+    alphanum:
+      letters:
+        - a
+        - b
+      numbers: 
+        1: 10
+        2: 20
+  tasks:
+    - name:
+#       set_fact: ab: {{ {'a':1, 'b':2} | ansible.builtin.combine({'b':3, 'c':4}) }}
+      set_fact: 
+        ab: "{{ 'serial':{ item } }}"
+#my_dict: "{{ my_dict | default({}) | combine({item.a:{item.b,item.a}}) }}"
+      loop: "{{ my_letters }}"
+  
+    - debug:
+        var: ab
