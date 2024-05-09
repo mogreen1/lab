@@ -1,0 +1,68 @@
+---
+- name: Run Meraki throughput test
+  hosts: localhost
+  gather_facts: no
+  vars_files: creds.yml
+  vars: 
+    base_url: "https://api.meraki.com/api/v1"
+    
+  tasks:
+
+           - name: Get all device availability info
+             cisco.meraki.organizations_devices_availabilities_info:
+               meraki_api_key: "{{ meraki_key }}"
+               organizationId: "{{ org_id }}"
+               tags: "{{ target_tags }}"
+               total_pages: -1
+             register: my_devices
+ 
+           - name: Filter for only online devices
+             set_fact:
+               online_mx: "{{ my_devices.meraki_response | selectattr('status', 'equalto', 'online') }}"
+           
+           - name: Request throughput test
+             cisco.meraki.devices_live_tools_throughput_test:
+               meraki_api_key: "{{ meraki_key }}"
+               serial: "{{ item.serial }}"
+               state: present
+             loop: "{{ online_mx }}"
+             register: mylink
+             
+           - name: Pause while throughput test completes
+             ansible.builtin.pause:
+               seconds: 11
+
+           - name: Pull throughput test results
+             vars:
+               base_url: "https://api.meraki.com/api/v1"
+               meraki_headers:
+                 Content-Type: "application/json"
+                 X-Cisco-Meraki-API-Key: "{{ meraki_key }}"
+             ansible.builtin.uri:
+               url: "{{ base_url }}{{ item.meraki_response.url }}"
+               method: GET
+               headers: "{{ meraki_headers }}"
+               follow_redirects: all
+               return_content: no
+               body_format: json
+               body:
+                 throughputTestId: "{{ item.meraki_response.throughputTestId }}"
+             register: meraki_info
+             loop: "{{ mylink.results }}"
+             delegate_to: localhost
+             
+           - name: Record speed test data in csv file
+             lineinfile:
+               path: "meraki_throughput_test.csv"
+               line: "{{ online_mx | selectattr('serial', 'match', item.json.request.serial) | map(attribute='name') | replace('[','') | replace(']','')}}, {{ item.json.result.speeds.downstream }} Mbps"
+               create: yes
+             loop: "{{ meraki_info.results }}"
+             delegate_to: localhost
+
+           - name: Display results
+             command: cat meraki_throughput_test.csv
+             register: results
+             
+           - name: Print info
+             debug:
+               var: results.stdout_lines
