@@ -12,7 +12,7 @@
              cisco.meraki.organizations_devices_availabilities_info:
                meraki_api_key: "{{ meraki_key }}"
                organizationId: "{{ org_id }}"
-               tags: "{{ target_tags }}"
+               tags: "{{ target_tags | default('recently-added')}}"
                total_pages: -1
              register: my_devices
  
