@@ -1,0 +1,16 @@
+- hosts: localhost
+  gather_facts: no
+  vars:
+    os_disks:
+      - { label: 'OSDisk1', uuid: 'uuid1' }
+      - { label: 'OSDisk2', uuid: 'uuid2' }
+      - { label: 'OSDisk3', uuid: 'uuid3' }
+    vm_disks:
+      - { label: 'VMDisk1', uuid: 'uuid1', file_path: '/path/to/disk1' }
+      - { label: 'VMDisk2', uuid: 'uuid2', file_path: '/path/to/disk2' }
+      - { label: 'VMDisk3', uuid: 'uuid3', file_path: '/path/to/disk3' }
+  tasks:
+    - debug:
+        msg: "{{ item.0.uuid | intersect(item.1.uuid)  }}"
+      loop: "{{ os_disks | product(vm_disks) | list }}"
+      # when: "{{ item.os_disks  | intersect(item.vm_disks) }}"

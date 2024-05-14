@@ -1,4 +1,5 @@
 ---
+### Adapted from this page: https://www.redhat.com/sysadmin/ansible-lists-dictionaries-yaml ##
 # - name: Dictionaries
 #   hosts: localhost
 #   gather_facts: no
