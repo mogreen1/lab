@@ -9,7 +9,7 @@
 
    - name: Query Meraki Org for All Networks 
      cisco.meraki.networks_info:
-       meraki_api_key: "{{ meraki_key }}"
+       meraki_api_key: "{{ auth_key }}"
        organizationId: "{{ org_id }}"
        #state: query
      delegate_to: localhost 
@@ -27,7 +27,7 @@
    
    - name: Gather Syslog Servers for All Networks
      cisco.meraki.networks_syslog_servers_info:
-       meraki_api_key: "{{ meraki_key }}"
+       meraki_api_key: "{{ auth_key }}"
       #  state: present
       #  organizationId: "{{ org_id }}"
        networkId: "{{ item }}"
