@@ -3,15 +3,16 @@
   hosts: localhost
   gather_facts: false
   vars:
-    con_host: https://student3.fn6tm.example.opentlc.com/
+    con_host: https://student1.r8v22.example.opentlc.com/
     con_user: admin
-    con_pass: hxhnmrqw
+    con_pass: 8fo1hca0
     scm_repo: https://github.com/mogreen1/lab.git
 
   tasks:
 
     - name: Create project
       awx.awx.project:
+        validate_certs: no
         name: "D_project"
         organization: "Red Hat network organization"
         state: present
@@ -23,6 +24,7 @@
     
     - name: Create job templates
       awx.awx.job_template:
+        validate_certs: no
         name: "1{{ item.desc }}"
         job_type: "run"
         organization: "Red Hat network organization"
@@ -54,6 +56,7 @@
 
     - name: Create a workflow job template
       awx.awx.workflow_job_template:
+        validate_certs: no
         name: 1Network Orchestration
         organization: Red Hat network organization
         controller_host: "{{ con_host }}"
