@@ -10,7 +10,7 @@
   
     - name: Default Network
       cisco.meraki.networks:
-        meraki_api_key: "{{ meraki_key }}"
+        meraki_api_key: "{{ auth_key }}"
         organizationId: "{{ org_id }}"
         name: "{{ network_name }}"
         state: present
