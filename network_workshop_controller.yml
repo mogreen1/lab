@@ -105,3 +105,30 @@
               failure_nodes: []
               always_nodes: []
               credentials: []
+
+    - name: Create job templates
+      awx.awx.job_template:
+        validate_certs: no
+        name: "Network Backup"
+        job_type: "run"
+        organization: "Red Hat network organization"
+        inventory: "Workshop Inventory"
+        #limit: "cisco"
+        project: "Workshop Project"
+        playbook: "network_backup.yml"
+        credentials:
+          - "Workshop Credential"
+          - "Controller Credential"
+        state: "present"
+        #survey_enabled: yes
+        # survey_spec: >
+        #     {"name": "", "description": "", "spec": [{"question_name": "Please enter a
+        #     custom hostname.", "question_description": "", "required": true, "type":
+        #     "text", "variable": "custom_hostname", "min": 0, "max": 1024, "default": "",
+        #     "choices": "", "new_question": true}]}
+        #survey_enabled: yes
+        #survey_spec: "{{ lookup('file', 'my_survey.json') }}"
+        controller_host: "{{ con_host }}"
+        controller_username: "{{ con_user }}"
+        controller_password: "{{ con_pass }}"
+
