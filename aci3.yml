@@ -6,8 +6,8 @@
   vars:
      - tenant_name: rh-tenant
      - uname: admin
-     - pwd: C1sco12345
-     - apic_name: 10.10.20.14
+     - pwd: '!v3G@!4@Y'
+     - apic_name: sandboxapicdc.cisco.com
      - vrf_name: rh-vrf
      - bd_name: rh-bd
   
