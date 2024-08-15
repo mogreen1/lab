@@ -9,13 +9,30 @@
       cisco.ios.ios_command:
         commands:
           - del /force c8000v*.bin
-          
-    - name: Push new image from project to bootflash
-      ansible.netcommon.net_put:
+
+    - name: Fetch image to EE
+      ansible.builtin.fetch:
         src: /etc/ansible/c8000v-universalk9.17.07.01a.SPA.bin
-        dest: c8000v-universalk9.17.07.01a.SPA.bin
+        dest: /tmp/
+        flat: true
+      delegate_to: ansible-1
+      become: true
+      run_once: true
+
+    - name: Copy Image to device from EE
+      ansible.netcommon.net_put:
+        src: /tmp/c8000v-universalk9.17.07.01a.SPA.bin
+        dest: flash:/c8000v-universalk9.17.07.01a.SPA.bin
       vars:
-        ansible_command_timeout: 1000
+        ansible_command_timeout: 3000
+        ansible_network_cli_ssh_type: paramiko
+
+    # - name: Push new image from project to bootflash
+    #   ansible.netcommon.net_put:
+    #     src: /etc/ansible/c8000v-universalk9.17.07.01a.SPA.bin
+    #     dest: c8000v-universalk9.17.07.01a.SPA.bin
+    #   vars:
+    #     ansible_command_timeout: 1000
 
     - name: Remove Bootvar
       cisco.ios.ios_config:
