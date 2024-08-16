@@ -12,7 +12,7 @@
 
     - name: Fetch image to EE
       ansible.builtin.fetch:
-        src: /images/c8000v-universalk9.17.07.01a.SPA.bin
+        src: "/images/{{ upgrade_img }}"
         dest: /tmp/
         flat: true
       delegate_to: ansible-1
@@ -20,8 +20,8 @@
 
     - name: Copy Image to device from EE
       ansible.netcommon.net_put:
-        src: /tmp/c8000v-universalk9.17.07.01a.SPA.bin
-        dest: flash:/c8000v-universalk9.17.07.01a.SPA.bin
+        src: "/tmp/{{ upgrade_img }}"
+        dest: "flash:/{{ upgrade_img }}"
       vars:
         ansible_command_timeout: 3000
         ansible_network_cli_ssh_type: paramiko
@@ -42,7 +42,7 @@
     - name: Convert to Install Mode
       cisco.ios.ios_command:
         commands:
-          - install add file bootflash:c8000v-universalk9.17.07.01a.SPA.bin activate commit prompt-level none
+          - "install add file bootflash:{{ upgrade_img }} activate commit prompt-level none"
       vars:
         ansible_command_timeout: 1000
 
