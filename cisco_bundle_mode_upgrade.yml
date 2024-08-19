@@ -1,6 +1,6 @@
 ---
 #####dynamic bundle mode upgrade with upgrade_img var
-- name: Convert from Install to Bundle Mode
+- name: Bundle Mode Upgrade
   hosts: cisco
   gather_facts: false
   vars:
