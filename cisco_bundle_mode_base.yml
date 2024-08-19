@@ -38,9 +38,13 @@
       cisco.ios.ios_config:
         commands:
           - no boot system
+
+    - name: Change Bootvar
+      cisco.ios.ios_config:
+        commands:
           - boot system bootflash:c8000v-universalk9.17.06.06a.SPA.bin
         save_when: always
-    
+
     - name: Remove Install Mode Files
       cisco.ios.ios_command:
         commands:
