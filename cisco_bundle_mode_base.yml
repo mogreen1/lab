@@ -46,6 +46,7 @@
         commands:
           - del /force c8000v*.pkg
           - del /force packages.conf
+      ignore_errors: true
     
     # - name: Reload the Device
     #   ansible.netcommon.cli_command:

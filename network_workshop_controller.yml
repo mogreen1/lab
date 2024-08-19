@@ -3,9 +3,9 @@
   hosts: localhost
   gather_facts: false
   vars:
-    con_host: https://student1.x6mgn.example.opentlc.com/
+    con_host: https://student1.5tr4z.example.opentlc.com/
     con_user: admin
-    con_pass: xxxxx
+    con_pass: xmsx47q1
     scm_repo: https://github.com/mogreen1/lab.git
 
   tasks:
