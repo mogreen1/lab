@@ -1,4 +1,5 @@
 ---
+#####static IOS version set in this playbook
 - name: Convert from Install to Bundle Mode
   hosts: cisco
   gather_facts: false
