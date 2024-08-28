@@ -1,4 +1,8 @@
 ---
+#### Works with Version 11 of Meraki collection. 
+#### I have this specified in my requirements.yml. 
+#### Using the Default EE in Automation Controller.
+
 - name: Modify Meraki configuration 
   hosts: localhost
   connection: local
