@@ -1,0 +1,46 @@
+---
+- name: Modify Meraki configuration 
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  vars_files:
+    - vault.yml
+  tasks:
+
+    - name: Query all devices in an organization.
+      meraki_device:
+        auth_key: "{{ auth_key }}"
+        org_id: "{{ org_id }}"
+        state: query
+      delegate_to: localhost
+      register: merinfo
+
+    - name: Gather device serial numbers
+      set_fact:
+        device_serial: "{{ merinfo.data | selectattr('product_type', 'equalto', 'switch') | map(attribute='serial') | list }}"   
+
+    - name: Query information about all switchports on a switch
+      meraki_switchport:
+        auth_key: "{{ auth_key }}"
+        state: query
+        serial: "{{ serial_number }}"
+      delegate_to: localhost
+      register: switch_config
+      #loop: "{{ device_serial }}"  
+
+    - name: Gather port numbers from switch
+      set_fact:
+        port_numbers: "{{ switch_config.data | selectattr('port_id') | map(attribute='port_id') | list }}"
+
+    - name: Modify switchports
+      meraki_switchport:
+        auth_key: "{{ auth_key }}"
+        state: present
+        serial: "{{ serial_number }}"
+        enabled: "{{ port_status }}"
+        number: "{{ item }}"
+        name: "{{ port_name }}"
+        vlan: "{{ vlan_number }}"
+        type: "{{ port_type }}"
+      delegate_to: localhost
+      loop: "{{ port_numbers }}"
