@@ -1,0 +1,4 @@
+[defaults]
+interpreter_python=/usr/bin/python3
+collections_path=/home/student/mdg/tempcoll
+inventory=/home/student/lab_inventory/hosts

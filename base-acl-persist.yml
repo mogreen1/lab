@@ -1,0 +1,13 @@
+- hosts: rtr1
+  gather_facts: true
+  tasks:
+  - name: Network Resource Manager
+    ansible.builtin.include_role:
+      name: network.base.resource_manager
+    vars:
+      operation: persist
+      ansible_network_os: cisco.ios.ios
+      resources:
+        - 'acls'
+      data_store:
+        local: "~/mdg/myssot"

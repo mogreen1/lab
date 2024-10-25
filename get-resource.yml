@@ -1,0 +1,15 @@
+---
+- hosts: rtr1
+  gather_facts: false
+  tasks:
+  - name: Network Resource Manager
+    ansible.builtin.include_role:
+      name: network.base.resource_manager
+    vars:
+      operation: list
+      ansible_network_os: cisco.ios.ios
+    register: available_resources
+  - name: create file of available resources
+    copy:
+      content: "{{ available_resources }}"
+      dest: resources.txt
