@@ -1,0 +1,19 @@
+---
+- name: Play 1 - Test legacy Cisco facts
+  hosts: rtr1
+  gather_facts: no
+  tasks:
+    
+    - name: Use cisco ios facts module
+      cisco.ios.ios_facts:
+        # gather_subset: default
+        # gather_subset:
+            # - hardware
+            # - config
+        # available_network_resources: true
+        # gather_network_resources:
+        #   - all
+    
+    - name: Use debug module
+      debug: Print facts
+        var: ansible_facts
