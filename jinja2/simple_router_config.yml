@@ -1,0 +1,17 @@
+---
+## This playbook adds variable from a file and then uses those
+## variabes in a jinja2 template.
+## Note: loop variables can be used in the j2 template.
+
+- name: Create simple config file 
+  hosts: localhost
+  gather_facts: no
+  vars_files:
+    - router_vars.txt
+  tasks:
+
+    - name: Use template module to create config file
+      ansible.builtin.template:
+        src: my_template.j2
+        dest: "device_configs/{{ item.name }}.cfg"
+      loop: "{{ routers }}"
