@@ -1,5 +1,5 @@
 routers:
-    - name: rtr1
-    - name: rtr2
-    - name: rtr3
-    - name: rtr17
+    - rtr1
+    - rtr2
+    - rtr3
+    - rtr17

@@ -1,0 +1,16 @@
+---
+- name: Create Router Configs
+  hosts: localhost
+  connection: local
+  vars_files:
+    - router_info.txt
+  tasks:
+    - name: Use template module
+      ansible.builtin.template:
+        src: router_temp.j2
+        dest: "configs/{{ item.name }}.cfg"
+      loop: "{{ config_info }}"
+
+    # - debug:
+    #     var: item.name
+    #   loop: "{{config_info}}"

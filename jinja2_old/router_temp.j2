@@ -1,0 +1,9 @@
+{# Set Device Hostname #}
+hostname {{ item.name }}
+
+interface loopback {{ item.subnet }}
+ip address {{ item.ipclass }}.{{ item.subnet }}.1 255.255.255.0
+
+router ospf 1
+router-id {{ item.ipclass }}.{{ item.subnet }}.1
+

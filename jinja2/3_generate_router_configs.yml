@@ -1,0 +1,17 @@
+---
+- name: Create Router Configs
+  hosts: localhost
+  connection: local
+
+  tasks:
+
+    - name: Read data from CSV file and return a dictionary
+      community.general.read_csv:
+        path: routers.csv
+      register: router_vars
+
+    - name: Use template module
+      ansible.builtin.template:
+        src: router_config_template_loop.j2
+        dest: "device_configs/{{ item.name }}.cfg"
+      loop: "{{ router_vars.list }}"

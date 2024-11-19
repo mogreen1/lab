@@ -1,0 +1,14 @@
+---
+- name: Play1
+  hosts: localhost
+  gather_facts: no
+  tasks:
+    
+    - name: Test csv
+      ansible.builtin.debug:
+        msg: "{{ csvline }}"
+      delegate_to: localhost
+      vars:
+        csvline: "{{ lookup('ansible.builtin.csvfile', 'backup4', file='input.csv', delimiter=',') }}"
+      # tags:
+      #   - test

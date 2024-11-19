@@ -1,0 +1,23 @@
+{# Set Device Hostname #}
+hostname {{ item.name }}
+
+{# Set Interface name and IP for Small Sites #}
+{% if item.size | lower  == "small" %}
+interface loopback {{ item.subnet }}
+ip address {{ item.ipclass }}.{{ item.subnet }}.1 255.255.255.192
+
+{# Set Interface name and IP for Medium Sites #}
+{% elif item.size | lower == "medium" %}
+interface loopback {{ item.subnet }}
+ip address {{ item.ipclass }}.{{ item.subnet }}.1 255.255.255.128
+
+{# Set Interface name and IP for Large Sites #}
+{% elif item.size | lower == "large" %}
+interface loopback {{ item.subnet }}
+ip address {{ item.ipclass }}.{{ item.subnet }}.1 255.255.255.0
+
+{% endif %}
+
+router ospf 1
+router-id {{ item.ipclass }}.{{ item.subnet }}.1
+

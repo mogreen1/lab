@@ -1,0 +1,43 @@
+---
+- name: Convert CSV to YAML variables
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  tasks:
+
+    - name: Read users from CSV file and return a dictionary
+      community.general.read_csv:
+        path: routers.csv
+        # key: name
+      register: router_vars
+    
+    - debug:
+        msg: "{{ item.ipclass }}.{{item.subnet}}.1"
+      loop: "{{ router_vars.list }}"
+      
+    ## From ChatGPT - not sure if this works##
+    # - name: Convert CSV data into a dictionary of variables
+    #   set_fact:
+    #     people:
+    #       - name: "{{ item[0] }}"
+    #         age: "{{ item[1] }}"
+    #         city: "{{ item[2] }}"
+    #   loop: "{{ csv_data }}"
+
+    # - name: Display the converted data
+    #   debug:
+    #     var: people
+
+
+
+    # - name: Read CSV data
+    #   set_fact:
+    #     csv_data: "{{ lookup('ansible.builtin.csvfile', file='vars.csv', delimiter=',') }}"
+
+
+    # - name: Show CSV data as a list of dictionaries
+    #   debug:
+    #     msg: "{{ csvline }}"
+    #   delegate_to: localhost
+    #   vars:
+    #     csvline: "{{ lookup('ansible.builtin.csvfile', 'Bob', file='vars.csv', keycol='0', delimiter=',') }}"

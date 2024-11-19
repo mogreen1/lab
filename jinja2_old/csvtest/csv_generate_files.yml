@@ -1,0 +1,26 @@
+---
+- name: Create Router Configs
+  hosts: localhost
+  connection: local
+
+  tasks:
+
+    - name: Read users from CSV file and return a dictionary
+      community.general.read_csv:
+        path: new.csv
+        # key: name
+      register: router_vars
+    
+    # - debug:
+    #     msg: "{{ item.ipclass }}.{{item.subnet}}.1"
+    #   loop: "{{ router_vars.list }}"
+
+    - name: Use template module
+      ansible.builtin.template:
+        src: /Users/dgreen/lab/jinja3/router_temp.j2
+        dest: "/Users/dgreen/lab/jinja3/configs/{{ item.name }}.cfg"
+      loop: "{{ router_vars.list }}"
+
+    # - debug:
+    #     var: item.name
+    #   loop: "{{config_info}}"

@@ -1,0 +1,6 @@
+name,ipclass,subnet
+router40,172.16,40
+router50,172.16,50
+router60,172.16,60
+router70,172.16,70
+router80,172.16,80

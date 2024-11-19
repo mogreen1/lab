@@ -10,8 +10,20 @@
     - router_vars.txt
   tasks:
 
+    - name: Print the contents of the routers variable
+      debug:
+        msg: "{{ routers }}"
+      tags: debug1
+
+    - name: Print each item from the routers variable - one by one
+      debug:
+        msg: "{{ item }}"
+      loop: "{{ routers }}"
+      tags: debug2
+
     - name: Use template module to create config file
       ansible.builtin.template:
-        src: my_template.j2
-        dest: "device_configs/{{ item.name }}.cfg"
+        src: simple_template.j2
+        dest: "device_configs/{{ item }}.cfg"
       loop: "{{ routers }}"
+      tags: template

@@ -1,0 +1,4 @@
+{# set hostname #}
+{% if item.region  == "east" %}
+hostname {{ item.name }}-{{ item.region }}
+{% endif %}

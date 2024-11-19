@@ -1,0 +1,4 @@
+name,ipclass,subnet,size
+router30,172.16,30,SMALL
+router40,172.16,40,medium
+router50,172.16,50,Large
