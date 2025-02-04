@@ -6,7 +6,10 @@
   tasks:
     - name: Gather aruba facts
       arubanetworks.aoscx.aoscx_facts:
-        gather_subset: software_version
+        gather_subset: 
+         #- physical_interfaces
+         - software_version
+         - platform_name
         #gather_network_resources: interfaces
       register: my_facts
 
