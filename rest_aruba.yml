@@ -1,0 +1,13 @@
+---
+- name: Aruba rest test
+  hosts: restaruba
+  gather_facts: no
+
+  tasks:
+    - name: Gather aruba facts
+      arubanetworks.aoscx.aoscx_facts:
+      register: my_facts
+
+    - name: Print output
+      debug:
+        msg: "{{ my_facts }}"
