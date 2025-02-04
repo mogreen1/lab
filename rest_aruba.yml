@@ -7,10 +7,10 @@
     - name: Gather aruba facts
       arubanetworks.aoscx.aoscx_facts:
         gather_subset: 
-         #- physical_interfaces
-         - software_version
+         - physical_interfaces
+         #- software_version
          - platform_name
-        #gather_network_resources: interfaces
+       #gather_network_resources: interfaces
       register: my_facts
 
     - name: Print output
