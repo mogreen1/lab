@@ -6,7 +6,7 @@
   tasks:
     - name: Gather aruba facts
       arubanetworks.aoscx.aoscx_facts:
-        gather_network_resources: interfaces
+        gather_network_resources: software_version
       register: my_facts
 
     - name: Print output
