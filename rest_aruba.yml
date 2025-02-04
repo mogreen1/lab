@@ -1,6 +1,6 @@
 ---
 - name: Aruba rest test
-  hosts: restaruba
+  hosts: all
   gather_facts: no
 
   tasks:
