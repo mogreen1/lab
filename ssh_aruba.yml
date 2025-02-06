@@ -1,0 +1,15 @@
+---
+- name: Aruba rest test
+  hosts: all
+  gather_facts: no
+
+  tasks:
+    - name: Gather aruba facts
+      arubanetworks.aoscx.aoscx_command:
+        commands:
+          - show interface 1/1/3,1/1/5,1/1/7 brief
+      register: my_data
+    
+    - name: Print output
+      debug:
+        msg: "{{ my_data.stdout_lines }}" 
