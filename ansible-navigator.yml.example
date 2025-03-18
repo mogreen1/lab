@@ -1,0 +1,13 @@
+---
+ansible-navigator:
+   execution-environment:
+     container-engine: podman
+     enabled: True 
+     image: shadowmanee:latest
+     pull:
+       policy: missing 
+     volume-mounts:
+       - src: "/tmp/files"
+         dest: "/tmp/files"
+   playbook-artifact:
+     enable: False 
