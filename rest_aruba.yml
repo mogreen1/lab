@@ -6,13 +6,8 @@
   tasks:
     - name: Gather aruba facts
       arubanetworks.aoscx.aoscx_facts:
-        gather_subset: 
-         - physical_interfaces
-         #- software_version
-         - platform_name
-       #gather_network_resources: interfaces
-      register: my_facts
+        gather_subset: platform_name 
 
     - name: Print output
       debug:
-        msg: "{{ my_facts }}"
+        msg: "{{ ansible_facts.net_mgmt_intf_status.hostname }},{{ ansible_facts.net_software_version }},{{ ansible_facts.net_platform_name }}"
