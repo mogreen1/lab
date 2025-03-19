@@ -1,0 +1,19 @@
+---
+- name: Generate Aruba Device Report
+  hosts: all 
+  gather_facts: no
+
+  tasks:
+    - name: Run CLI Command on Arista Devices
+      arubanetworks.aoscx.aoscx_command:
+        commands:
+          - show run | i hostname
+          - show system | i "Product Name"
+          - show version | i Version | e BIOS | e Service
+          - show interface 1/1/2,1/1/3,1/1/4 brief | i 1/
+          - show mac-address-table interface 1/1/2,1/1/3,1/1/4 | i dynamic
+      register: my_data
+
+    - name: Print output
+      debug:
+        msg: "{{ my_data.stdout_lines }}"
