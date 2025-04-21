@@ -1,5 +1,5 @@
 ---
-- name: Run Comman on Aruba Devices
+- name: Run Command on Aruba Devices
   hosts: all
   gather_facts: no
   tasks:
@@ -11,4 +11,4 @@
 
     - name: Print Command Output
       ansible.builtin.debug:
-        msg: "{{ my_var.stdout_lines }}"
+        msg: "{{ my_var.stdout_lines.0 }}"
