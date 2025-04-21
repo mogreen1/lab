@@ -1,0 +1,14 @@
+---
+- name: Run Comman on Aruba Devices
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: Run CLI Command on Arista Devices
+      arubanetworks.aoscx.aoscx_command:
+        commands:
+          - "{{ my_command }}"
+      register: my_var
+
+    - name: Print Command Output
+      ansible.builtin.debug:
+        msg: "{{ my_var.stdout_lines }}"
