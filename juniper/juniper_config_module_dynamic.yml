@@ -1,0 +1,14 @@
+---
+### This playbook shows sending config commands to Junos device
+### Compare to juniper_snmp_module.yml
+- name: Configure Junos Device
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: Modify SNMP Config
+      junipernetworks.junos.junos_config:
+        lines:
+          - "set snmp community {{ public_string | default ('ansible-public') }}"
+          - "set snmp community {{ public_string | default ('ansible-public') }} authorization read-only"
+          - "set snmp community {{ private_string | default ('ansible-private') }}"
+          - "set snmp community {{ private_string | default ('ansible-private') }} authorization read-write"

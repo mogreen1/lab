@@ -1,0 +1,16 @@
+---
+### This playbook shows using a specific module to configure Junos device
+### Compare to juniper_config_module.yml
+- name: Configure Junos Device
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: Modify SNMP Config
+      junipernetworks.junos.junos_snmp_server:
+        config:
+          communities:
+            - name: "{{ public_string | default ('ansible-public') }}"
+              authorization: read-only
+            - name: "{{ private_string | default ('ansible-private') }}"
+              authorization: read-write
+        state: merged

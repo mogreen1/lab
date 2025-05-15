@@ -1,0 +1,14 @@
+---
+- name: Configure Junos Device
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: Modify SNMP Config
+      junipernetworks.junos.junos_snmp_server:
+        config:
+          communities:
+            - name: ansible-public
+              authorization: read-only
+            - name: ansible-private
+              authorization: read-write
+        state: merged

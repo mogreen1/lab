@@ -1,0 +1,12 @@
+---
+- name: Configure Junos Device
+  hosts: rtr3
+  gather_facts: no
+  tasks:
+    - name: Modify SNMP Config
+      junipernetworks.junos.junos_config:
+        lines:
+          - set snmp community ansible-public
+          - set snmp community ansible-public authorization read-only
+          - set snmp community ansible-private
+          - set snmp community ansible-private authorization read-write
