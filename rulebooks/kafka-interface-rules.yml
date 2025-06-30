@@ -1,5 +1,6 @@
+---
 - name: Rules with kafka as source
-  hosts: localhost
+  hosts: all
   sources:
     - ansible.eda.kafka:
         topic: network
