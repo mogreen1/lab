@@ -11,8 +11,8 @@
       condition: events.body.fields.new_state == "interface-notif-state-down"
       action:
         run_job_template:
-          name: "EDA-Fix-Ports"
-          organization: "Security"
+          name: "dgreen-eda"
+          organization: "Default"
           job_args:
             extra_vars:
               interface: "{{ event.body.fields.if_name }}"
