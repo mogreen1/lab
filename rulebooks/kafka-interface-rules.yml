@@ -11,7 +11,7 @@
       condition: events.body.fields.new_state == "interface-notif-state-down"
       action:
         run_job_template:
-          name: "dgreen-eda"
+          name: "ciscoeda"
           organization: "Security"
           job_args:
             extra_vars:
