@@ -1,0 +1,19 @@
+- name: Rules with kafka as source
+  hosts: localhost
+  sources:
+    - ansible.eda.kafka:
+        topic: network
+        host: broker
+        port: 9092
+
+  rules:
+    - name: Retrieve Data and Launch Job-template
+      condition: events.body.fields.new_state == "interface-notif-state-down"
+      action:
+        run_job_template:
+          name: "EDA-Fix-Ports"
+          organization: "Default"
+          job_args:
+            extra_vars:
+              interface: "{{ event.body.fields.if_name }}"
+              rtr: "{{ event.body.fields.host_name }}"
