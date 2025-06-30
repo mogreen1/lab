@@ -12,7 +12,7 @@
       action:
         run_job_template:
           name: "ciscoeda"
-          organization: Security
+          organization: Networking
           job_args:
             extra_vars:
               interface: "{{ event.body.fields.if_name }}"
