@@ -12,7 +12,7 @@
       action:
         run_job_template:
           name: "cisco-eda"
-          organization: Networking
+          organization: Default
           job_args:
             extra_vars:
               interface: "{{ event.body.fields.if_name }}"
