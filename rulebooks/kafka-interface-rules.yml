@@ -3,7 +3,7 @@
   sources:
     - ansible.eda.kafka:
         topic: network
-        host: broker
+        host: kafka.shadowman.dev
         port: 9092
 
   rules:
