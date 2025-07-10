@@ -1,0 +1,20 @@
+---
+- name: Rules with kafka as source
+  hosts: all
+  sources:
+    - ansible.eda.kafka:
+        topic: network
+        host: dgkafka8.shadowman.dev
+        port: 19092
+
+  rules:
+    - name: Fix Down Port
+      condition: events.body.fields.new_state == "interface-notif-state-down"
+      action:
+        run_job_template:
+          name: "cisco-eda"
+          organization: Networking
+          job_args:
+            extra_vars:
+              interface: "{{ event.body.fields.if_name }}"
+              rtr: "{{ event.body.fields.host_name }}"
