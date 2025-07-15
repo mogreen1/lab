@@ -8,5 +8,6 @@
     - name: Test rule 
       condition: event.payload.severity == critical
       action:
-        debug: 
-          msg: "{{ event.payload.alert }}" 
+        run_job_template: 
+          name: "Basic Command"
+          organization: Default
