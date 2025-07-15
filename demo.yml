@@ -1,0 +1,9 @@
+---
+- name:
+  hosts: all
+  gather_facts: true
+
+  tasks:
+
+  - name:
+    ansible.builtin.command: pwd
