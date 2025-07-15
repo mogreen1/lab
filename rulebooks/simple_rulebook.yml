@@ -1,0 +1,12 @@
+- name: Rules with kafka as source
+  hosts: localhost 
+  sources:
+    - ansible.eda.webhook:
+        port: 5000 
+
+  rules:
+    - name: Test rule 
+      condition: event.payload.severity == critical
+      action:
+        debug: 
+          msg: "{{ event.payload.alert }}" 
