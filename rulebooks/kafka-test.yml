@@ -1,0 +1,16 @@
+---
+- name: Rules with kafka as source
+  hosts: all
+  sources:
+    - ansible.eda.kafka:
+        topic: network
+        host: 10.0.0.7
+        port: 9092
+
+  rules:
+    - name: Fix Down Port
+      condition: events.body.fields.new_state == "interface-notif-state-down"
+      action:
+        run_job_template:
+          name: "Basic Command"
+          organization: Default
