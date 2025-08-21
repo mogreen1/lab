@@ -6,4 +6,4 @@
     - name: Modify Device Hostname
       junipernetworks.junos.junos_hostname:
         config:
-          hostname: "{{ inventory_hostname }}"
+          hostname: "{{ new_hostname }}"
