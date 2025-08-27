@@ -1,0 +1,37 @@
+---
+- name: Modify Meraki Syslog Servers
+  hosts: localhost
+  gather_facts: false
+  vars_files:
+    - vault.yml
+  
+  tasks:
+
+   - name: Query Meraki Org for All Networks 
+     cisco.meraki.networks_info:
+       meraki_api_key: "{{ auth_key }}"
+       organizationId: "{{ org_id }}"
+     delegate_to: localhost 
+     register: merinfo
+   - debug:
+       var: merinfo
+
+   - name: Gather All Meraki Network Names
+     set_fact:
+       network_names: "{{ merinfo.meraki_response | selectattr('name', 'defined') | map(attribute='name') | list }}"
+   
+   - name: Gather Network Ids
+     set_fact:
+       network_ids: "{{ merinfo.meraki_response | selectattr('id', 'defined') | map(attribute='id') | list }}"
+   
+   - name: Update Syslog Servers for All Networks
+     cisco.meraki.networks_syslog_servers:
+       meraki_api_key: "{{ auth_key }}"
+       networkId: "{{ item }}"
+       servers:
+         - host: "{{ syslog_ip_1 }}"
+           port: "{{ syslog_port_1 }}"
+           roles:
+             - Flows
+     delegate_to: localhost
+     loop: "{{ network_ids }}" 
