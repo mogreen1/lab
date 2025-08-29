@@ -28,8 +28,8 @@
    - name: Update Syslog Servers for All Networks
      cisco.meraki.networks_syslog_servers:
        meraki_api_key: "{{ auth_key }}"
-       state: present
-       organizationId: "{{ org_id }}"
+       #state: present
+       #organizationId: "{{ org_id }}"
        networkId: "{{ item }}"
        servers:
          - host: "{{ syslog_ip_1 }}"
