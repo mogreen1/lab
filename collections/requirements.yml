@@ -1,7 +1,0 @@
----
-collections:
-
-- name: cisco.meraki
-  version: "2.11.0"
-- azure.azcollection
-- awx.awx
