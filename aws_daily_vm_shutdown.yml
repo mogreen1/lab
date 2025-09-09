@@ -15,12 +15,35 @@
         secret_key: "{{ secret_key }}"
         uptime: 1
         filters:
-          instance-state-name: [ "running" ]
+          tag-key: "Name"
       register: ec2_instance_facts
 
     - debug:  
         msg: "{{ item.public_dns_name }}"
       loop: "{{ ec2_instance_facts.instances }}"
+
+    - name: shut down instances
+      amazon.aws.ec2_instance:
+        region: "{{ aws_region }}"
+        access_key: "{{ access_key }}"
+        secret_key: "{{ secret_key }}"
+        instance_ids: "{{ item.instance_id }}"
+        state: stopped
+      loop: "{{ ec2_instance_facts.instances }}"
+
+    # - name: Gather running instance information
+    #   amazon.aws.ec2_instance_info:
+    #     region: "{{ aws_region }}"
+    #     access_key: "{{ access_key }}"
+    #     secret_key: "{{ secret_key }}"
+    #     uptime: 1
+    #     filters:
+    #       instance-state-name: [ "running" ]
+    #   register: ec2_instance_facts
+
+    # - debug:  
+    #     msg: "{{ item.public_dns_name }}"
+    #   loop: "{{ ec2_instance_facts.instances }}"
 
     # - name: shut down instances
     #   amazon.aws.ec2_instance:
