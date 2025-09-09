@@ -22,14 +22,14 @@
         msg: "{{ item.public_dns_name }}"
       loop: "{{ ec2_instance_facts.instances }}"
 
-    - name: shut down instances
-      amazon.aws.ec2_instance:
-        region: "{{ aws_region }}"
-        access_key: "{{ access_key }}"
-        secret_key: "{{ secret_key }}"
-        instance_ids: "{{ item.instance_id }}"
-        state: stopped
-      loop: "{{ ec2_instance_facts.instances }}"
+    # - name: shut down instances
+    #   amazon.aws.ec2_instance:
+    #     region: "{{ aws_region }}"
+    #     access_key: "{{ access_key }}"
+    #     secret_key: "{{ secret_key }}"
+    #     instance_ids: "{{ item.instance_id }}"
+    #     state: stopped
+    #   loop: "{{ ec2_instance_facts.instances }}"
 
     # - name: Gather running instance information
     #   amazon.aws.ec2_instance_info:
