@@ -13,7 +13,7 @@
         region: "{{ aws_region }}"
         access_key: "{{ access_key }}"
         secret_key: "{{ secret_key }}"
-        uptime: 1
+        # uptime: 1
         filters:
           tag-key: "Name"
           instance-state-name: [ "running" ]
@@ -38,7 +38,7 @@
         region: "{{ aws_region }}"
         access_key: "{{ access_key }}"
         secret_key: "{{ secret_key }}"
-        uptime: 1
+        # uptime: 1
         filters:
           instance-state-name: [ "running" ]
       register: ec2_instance_facts
