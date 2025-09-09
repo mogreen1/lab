@@ -2,8 +2,8 @@
 - name: Shutdown AWS instances
   hosts: localhost
   gather_facts: false
-  #vars_files:
-   # - vault.yml
+  vars_files:
+    - vault.yml
   vars:
     aws_region: us-east-2
 
