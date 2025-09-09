@@ -16,6 +16,8 @@
         uptime: 1
         filters:
           tag-key: "Name"
+          instance-state-name: [ "running" ]
+
       register: ec2_instance_facts
 
     - debug:  
