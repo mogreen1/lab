@@ -8,7 +8,7 @@
     ansible_eda_db: "eda"
     ansible_eda_user: "postgres"
     ansible_eda_password: "YOUR_DB_PASSWORD"
-    ansible_eda_host: "127.0.0.1"
+    ansible_eda_host: "10.0.0.12"
     ansible_eda_port: 5432
 
   tasks:
