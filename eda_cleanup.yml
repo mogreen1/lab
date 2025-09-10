@@ -45,4 +45,4 @@
         login_user: "{{ ansible_eda_user }}"
         login_password: "{{ ansible_eda_password }}"
         query: |
-          DELETE FROM core_activation;
+          DELETE FROM core_rulebook_process_log;
