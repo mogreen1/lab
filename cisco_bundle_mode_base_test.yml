@@ -1,0 +1,58 @@
+---
+#####static - convert workshop to bundle mode with version 17.4.1a
+- name: Convert from Install to Bundle Mode
+  hosts: cisco
+  gather_facts: false
+  vars:
+    ansible_network_cli_ssh_type: paramiko
+  tasks:
+    - name: Remove Install Mode Files
+      cisco.ios.ios_command:
+        commands:
+          - del /force c8000v*.bin
+    
+    - name: Fetch image to EE
+      ansible.builtin.fetch:
+        src: /images/c8000v-universalk9.17.04.01a.SPA.bin
+        dest: /tmp/
+        flat: true
+      delegate_to: ansible-1
+      run_once: true
+
+    - name: Copy Image to device from EE
+      ansible.netcommon.net_put:
+        src: /tmp/c8000v-universalk9.17.04.01a.SPA.bin
+        dest: flash:/c8000v-universalk9.17.04.01a.SPA.bin
+      vars:
+        ansible_command_timeout: 3000
+        ansible_network_cli_ssh_type: paramiko
+
+    - name: Change Bootvar
+      cisco.ios.ios_config:
+        commands:
+          - no boot system
+
+    - name: Change Bootvar
+      cisco.ios.ios_config:
+        commands:
+          - boot system bootflash:c8000v-universalk9.17.04.01a.SPA.bin
+        save_when: always
+
+    - name: Remove Install Mode Files
+      cisco.ios.ios_command:
+        commands:
+          - del /force c8000v*.pkg
+          - del /force packages.conf
+      ignore_errors: true
+    
+    - name: Reload device
+      cisco.ios.ios_command:
+        commands: 
+          - command: reload
+            prompt: 'Proceed with reload\? \[confirm\]'
+            answer: 'y'
+
+    - name: Wait for device to come back online
+      ansible.builtin.wait_for_connection:
+        delay: 90
+        timeout: 1000
