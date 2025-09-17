@@ -12,32 +12,42 @@
     ansible_eda_port: 5432
 
   tasks:
-    # - name: "Task 1: Delete from core_audit_event_audit_actions"
-    #   community.postgresql.postgresql_query:
-    #     db: "{{ ansible_eda_db }}"
-    #     login_host: "{{ ansible_eda_host }}"
-    #     login_port: "{{ ansible_eda_port }}"
-    #     login_user: "{{ ansible_eda_user }}"
-    #     login_password: "{{ ansible_eda_password }}"
-    #     query: |
-    #       DELETE FROM core_audit_event_audit_actions
-    #       WHERE auditaction_id IN (
-    #         SELECT id FROM core_audit_action
-    #         WHERE audit_rule_id BETWEEN 1 AND 699
-    #       );
+    - name: "Task 1: Delete from core_audit_event_audit_actions"
+      community.postgresql.postgresql_query:
+        db: "{{ ansible_eda_db }}"
+        login_host: "{{ ansible_eda_host }}"
+        login_port: "{{ ansible_eda_port }}"
+        login_user: "{{ ansible_eda_user }}"
+        login_password: "{{ ansible_eda_password }}"
+        query: |
+          DELETE FROM core_audit_event_audit_actions
+          WHERE auditaction_id IN (
+            SELECT id FROM core_audit_action
+            WHERE audit_rule_id BETWEEN 1 AND 699
+          );
 
-    # - name: "Task 2: Delete from core_audit_action"
-    #   community.postgresql.postgresql_query:
-    #     db: "{{ ansible_eda_db }}"
-    #     login_host: "{{ ansible_eda_host }}"
-    #     login_port: "{{ ansible_eda_port }}"
-    #     login_user: "{{ ansible_eda_user }}"
-    #     login_password: "{{ ansible_eda_password }}"
-    #     query: |
-    #       DELETE FROM core_audit_action
-    #       WHERE audit_rule_id BETWEEN 1 AND 699;
+    - name: "Task 2: Delete from core_audit_action"
+      community.postgresql.postgresql_query:
+        db: "{{ ansible_eda_db }}"
+        login_host: "{{ ansible_eda_host }}"
+        login_port: "{{ ansible_eda_port }}"
+        login_user: "{{ ansible_eda_user }}"
+        login_password: "{{ ansible_eda_password }}"
+        query: |
+          DELETE FROM core_audit_action
+          WHERE audit_rule_id BETWEEN 1 AND 699;
 
     - name: "Task 3: Delete from core_audit_rule"
+      community.postgresql.postgresql_query:
+        db: "{{ ansible_eda_db }}"
+        login_host: "{{ ansible_eda_host }}"
+        login_port: "{{ ansible_eda_port }}"
+        login_user: "{{ ansible_eda_user }}"
+        login_password: "{{ ansible_eda_password }}"
+        query: |
+          DELETE FROM core_audit_rule;
+
+    - name: "Task 4: Delete from core_rulebook_process_log"
       community.postgresql.postgresql_query:
         db: "{{ ansible_eda_db }}"
         login_host: "{{ ansible_eda_host }}"
