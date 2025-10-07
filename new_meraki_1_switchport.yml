@@ -14,7 +14,7 @@
         state: present
         serial: "{{ serial_number }}"
         enabled: "{{ port_status }}"
-        number: "{{ port_number }}"
+        portId: "{{ port_number }}"
         name: "{{ port_name }}"
         vlan: "{{ vlan_number }}"
         type: "{{ port_type }}"
