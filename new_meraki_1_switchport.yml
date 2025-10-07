@@ -10,7 +10,7 @@
 
     - name: Modify a switchport
       cisco.meraki.devices_switch_ports:
-        auth_key: "{{ auth_key }}"
+        meraki_api_key: "{{ auth_key }}"
         state: present
         serial: "{{ serial_number }}"
         enabled: "{{ port_status }}"
