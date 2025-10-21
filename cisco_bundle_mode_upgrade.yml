@@ -6,10 +6,10 @@
   vars:
     ansible_network_cli_ssh_type: paramiko
   tasks:
-    # - name: Remove Install Mode Files
-    #   cisco.ios.ios_command:
-    #     commands:
-    #       - del /force c8000v*.bin
+    - name: Remove Files
+      cisco.ios.ios_command:
+        commands:
+          - del /force c8000v*.bin
           
     # - name: Push new image from project to bootflash
     #   ansible.netcommon.net_put:
