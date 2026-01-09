@@ -4,7 +4,7 @@
   sources:
     - ansible.eda.kafka:
         topic: network
-        host: dgkafka8.shadowman.dev
+        host: dgkafkanew.shadowman.dev
         port: 19092
 
   rules:
