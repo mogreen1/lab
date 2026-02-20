@@ -1,0 +1,12 @@
+---
+- name: Enable Arista eAPI
+  hosts: arista
+  gather_facts: false
+  tasks:
+    - name: Enable eAPI access with default configuration
+      arista.eos.eos_eapi:
+        state: started
+    - name: configure top level settings
+      arista.eos.eos_config:
+        lines:
+          - username ec2-user privilege 15 role network-admin secret password

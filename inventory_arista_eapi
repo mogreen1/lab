@@ -1,0 +1,13 @@
+[arista]
+rtr1 ansible_host=x.x.x.x
+
+[arista:vars]
+ansible_network_os=eos
+ansible_connection=httpapi
+ansible_httpapi_use_ssl=true
+ansible_httpapi_validate_certs=false
+ansible_httpapi_port=443
+ansible_become=true
+ansible_become_method=enable
+ansible_user=x
+ansible_password=x

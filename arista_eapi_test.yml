@@ -1,0 +1,10 @@
+---
+- name: Test Arista eAPI
+  hosts: arista
+  gather_facts: false
+  tasks:
+    - name: Show Commands
+      arista.eos.eos_command:
+        commands:
+          - show version
+          - show management api http-commands #show eAPI activity
