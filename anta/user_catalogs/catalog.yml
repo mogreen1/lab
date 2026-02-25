@@ -1,0 +1,5 @@
+---
+anta.tests.software:  
+  - VerifyEOSVersion:
+      versions:
+        - 4.32.0F-cloud
