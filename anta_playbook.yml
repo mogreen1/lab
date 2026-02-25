@@ -21,5 +21,6 @@
       ansible.scm.git_retrieve:
         origin:
           url: https://github.com/mogreen1/lab.git
+          token: "{{ Token }}"
         parent_directory: /tmp
-        token: "{{ Token }}"
+        
