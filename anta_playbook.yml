@@ -1,0 +1,13 @@
+- name: Run ANTA
+  hosts: rtr1
+  connection: local
+  gather_facts: false
+  tasks:
+    - name: Run ANTA on EOS devices
+      timeout: 120
+      import_role:
+        name: arista.avd.anta_runner
+      vars:
+        avd_catalogs_enabled: false 
+        user_catalogs_enabled: true
+        #avd_create_directories: false
