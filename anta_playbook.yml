@@ -22,4 +22,4 @@
         origin:
           url: https://github.com/mogreen1/lab.git
         parent_directory: /tmp
-        token: {{ Token }}
+        token: "{{ Token }}"
