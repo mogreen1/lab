@@ -10,5 +10,5 @@
       vars:
         avd_catalogs_enabled: false 
         user_catalogs_enabled: true
-        avd_create_directories: false
+        avd_create_directories: true
         root_dir: "{{ playbook_dir }}"
