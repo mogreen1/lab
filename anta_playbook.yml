@@ -12,3 +12,4 @@
         user_catalogs_enabled: true
         avd_create_directories: true
         root_dir: "{{ playbook_dir }}"
+        input_dir: /arista/anta/user_catalogs
