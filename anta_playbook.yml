@@ -28,3 +28,13 @@
       ansible.builtin.command: cp -r /runner/project/anta/reports /tmp/reports
       delegate_to: localhost
       connection: local
+
+    - name: Push to repo
+      ansible.scm.git_publish:
+        commit:
+          message: Upload Reports
+          token: "{{ Token }}"
+        user:
+          email: my@email.com
+          name: myuser
+        path: /tmp/reports
