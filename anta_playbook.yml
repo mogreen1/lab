@@ -26,4 +26,6 @@
 
     - name: copy files
       ansible.builtin.command: cp /runner/project/anta/reports /tmp/reports
+      delegate_to: localhost
+      connection: local
        
