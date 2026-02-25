@@ -25,7 +25,6 @@
         parent_directory: /tmp
 
     - name: copy files
-      ansible.builtin.command: cp /runner/project/anta/reports /tmp/reports
+      ansible.builtin.command: cp -r /runner/project/anta/reports /tmp/reports
       delegate_to: localhost
       connection: local
-       
