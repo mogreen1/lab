@@ -6,10 +6,10 @@
   vars:
     ansible_network_cli_ssh_type: paramiko
   tasks:
-    # - name: Remove Install Mode Files
-    #   cisco.ios.ios_command:
-    #     commands:
-    #       - del /force c8000v*.bin
+    - name: Remove Install Mode Files
+      cisco.ios.ios_command:
+        commands:
+          - del /force c8000v*.bin
           
     
     - name: Fetch image to EE
