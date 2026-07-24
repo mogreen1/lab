@@ -1,0 +1,17 @@
+- name: Node 1 - Say Hello and WORLD
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - name: Task 1 - Say Hello
+      debug:
+        msg: "Hello"
+
+    - name: Task 2 - Say WORLD
+      debug:
+        msg: "WORLD"
+
+    - name: Publish all task results
+      set_stats:
+        data:
+          node1_all_results: "{{ ansible_run_results }}"
