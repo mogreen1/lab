@@ -1,8 +1,0 @@
-- name: Node 2 - Display Node 1 Results
-  hosts: localhost
-  gather_facts: false
-
-  tasks:
-    - name: Show all results from Node 1
-      debug:
-        var: workflow.node1_all_results
