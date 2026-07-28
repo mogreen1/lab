@@ -24,7 +24,5 @@
       ansible.builtin.set_stats:
         data: 
           my_job_id: "{{ awx_job_id }}"
-          per_host: false
+        per_host: false
 
-    - debug:
-        var: data.my_job_id
