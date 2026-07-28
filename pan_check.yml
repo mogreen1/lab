@@ -1,0 +1,30 @@
+---
+- name: Check status of PAN FW 
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  vars_files: dgreen-vault 
+  vars:
+    provider:
+      ip_address: "{{ palo_ip_address }}"
+      username: "{{ palo_username }}"
+      password: "{{ palo_password }}"
+
+  tasks:
+    - name: Check if PAN-OS appliance is ready and wait until it is
+      paloaltonetworks.panos.panos_check:
+        provider: "{{ provider }}"
+      changed_when: false
+      register: result
+      until: result is not failed and result.msg == 'Device is ready.'
+      retries: 100
+      delay: 15
+
+    - name: Display output
+      ansible.builtin.set_stats:
+        data: 
+          my_job_id: "{{ awx_job_id }}"
+          per_host: false
+
+    - debug:
+        var: my_job_id

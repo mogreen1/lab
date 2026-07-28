@@ -1,0 +1,30 @@
+---
+- name: Print AWX Info 
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  vars:
+    provider:
+      ip_address: "{{ palo_ip_address }}"
+      username: "{{ palo_username }}"
+      password: "{{ palo_password }}"
+
+  tasks:
+    - name: Get Node Results 
+      ansible.builtin.uri:
+        url: >-
+          https://aap.shadowman.dev/api/controller/v2/jobs/
+          {{ my_job_id }}/stdout/?format=json
+        method: GET
+        headers:
+          Authorization: "Bearer {{ aap_token }}"
+        return_content: true
+        validate_certs: false 
+      delegate_to: localhost
+      no_log: true
+      register: my_job_results
+
+    - name: Print Job results
+      debug:
+        var: my_job_results
+
