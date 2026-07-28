@@ -29,5 +29,5 @@
    
     - name: Print Job results
       debug:
-        var: my_job_results.content.results. #7.event_data.res.invocation.module_args
+        var: my_job_results.content.results #7.event_data.res.invocation.module_args
    
