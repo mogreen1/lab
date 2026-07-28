@@ -3,7 +3,7 @@
   hosts: localhost
   connection: local
   gather_facts: no
-  vars_files: dgreen-vault 
+  vars_files: vault.yml 
   vars:
     provider:
       ip_address: "{{ palo_ip_address }}"
