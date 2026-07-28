@@ -27,4 +27,4 @@
           per_host: false
 
     - debug:
-        var: my_job_id
+        var: data.my_job_id
