@@ -35,7 +35,6 @@
             my_job_results.json.results
             | rejectattr('event_data.res', 'undefined')
             | map(attribute='event_data.res')
-            | first
           }}
     
     - name: Print Job results

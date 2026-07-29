@@ -13,7 +13,7 @@
 
   tasks:
 
-    - name: Attempt to create an object that already exists int he PAN FW. This should show as ok and no change.
+    - name: Attempt to create an object that already exists in the PAN FW. This should show as ok and no change.
       paloaltonetworks.panos.panos_address_object:
         provider: 
           ip_address: "{{ palo_ip_address }}"
@@ -22,6 +22,16 @@
         name: "Hacker 1"
         address_type: 'ip-netmask'
         value: 1.1.1.1
+
+    - name: Attempt to create a net new object in the PAN FW. This should show changed.
+      paloaltonetworks.panos.panos_address_object:
+        provider: 
+          ip_address: "{{ palo_ip_address }}"
+          username: "{{ palo_username }}"
+          password: "{{ palo_password }}"
+        name: "Hacker 2"
+        address_type: 'ip-netmask'
+        value: 2.2.2.2
       #when: pre_object_name | length == 0
 
     # - name: Check if PAN-OS appliance is ready and wait until it is
