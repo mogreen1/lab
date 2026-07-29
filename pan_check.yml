@@ -1,5 +1,5 @@
 ---
-- name: Check status of PAN FW 
+- name: Test adding object to PAN FW 
   hosts: localhost
   connection: local
   gather_facts: no
@@ -54,7 +54,7 @@
     #   retries: 100
     #   delay: 15
 
-    - name: Display output
+    - name: Pass Node Job ID to workflow
       ansible.builtin.set_stats:
         data: 
           my_job_id: "{{ awx_job_id }}"

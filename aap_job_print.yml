@@ -1,5 +1,5 @@
 ---
-- name: Print AWX Info 
+- name: Print AAP Workflow Node Info 
   hosts: localhost
   connection: local
   gather_facts: no
@@ -14,7 +14,7 @@
     - debug:
         var: my_job_id
     
-    - name: Get Node Results 
+    - name: Get Worfkow Node Results 
       ansible.builtin.uri:
         url: >-
           https://aap.shadowman.dev/api/controller/v2/jobs/{{ my_job_id }}/job_events
@@ -28,7 +28,7 @@
       register: my_job_results
   
 
-    - name: Get first result with a res dictionary
+    - name: Get Tasks that resulted in a change
       ansible.builtin.set_fact:
         task_result: >-
           {{
