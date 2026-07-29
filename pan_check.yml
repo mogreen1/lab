@@ -13,7 +13,7 @@
 
   tasks:
 
-    - name: Attempt to create a pre-existing object. This should show: as ok and no change.
+    - name: Attempt to create an object that already exists int he PAN FW. This should show as ok and no change.
       paloaltonetworks.panos.panos_address_object:
         provider: 
           ip_address: "{{ palo_ip_address }}"
