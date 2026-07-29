@@ -29,9 +29,20 @@
           ip_address: "{{ palo_ip_address }}"
           username: "{{ palo_username }}"
           password: "{{ palo_password }}"
-        name: "Hacker 3"
+        name: "Hacker 4"
         address_type: 'ip-netmask'
-        value: 3.3.3.3
+        value: 4.4.4.4
+
+    - name: Attempt to create a net new object in the PAN FW. This should show changed.
+      paloaltonetworks.panos.panos_address_object:
+        provider: 
+          ip_address: "{{ palo_ip_address }}"
+          username: "{{ palo_username }}"
+          password: "{{ palo_password }}"
+        name: "Hacker 5"
+        address_type: 'ip-netmask'
+        value: 5.5.5.5
+
       #when: pre_object_name | length == 0
 
     # - name: Check if PAN-OS appliance is ready and wait until it is
