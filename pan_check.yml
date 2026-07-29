@@ -29,9 +29,9 @@
           ip_address: "{{ palo_ip_address }}"
           username: "{{ palo_username }}"
           password: "{{ palo_password }}"
-        name: "Hacker 2"
+        name: "Hacker 3"
         address_type: 'ip-netmask'
-        value: 2.2.2.2
+        value: 3.3.3.3
       #when: pre_object_name | length == 0
 
     # - name: Check if PAN-OS appliance is ready and wait until it is

@@ -34,6 +34,7 @@
           {{
             my_job_results.json.results
             | rejectattr('event_data.res', 'undefined')
+            | selectattr('event_data.res.changed', 'equalto', true)
             | map(attribute='event_data.res')
           }}
     
