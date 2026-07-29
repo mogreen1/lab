@@ -5,20 +5,33 @@
   gather_facts: no
   vars_files: vault.yml 
   vars:
+    # pre_object_name: []
     provider:
       ip_address: "{{ palo_ip_address }}"
       username: "{{ palo_username }}"
       password: "{{ palo_password }}"
 
   tasks:
-    - name: Check if PAN-OS appliance is ready and wait until it is
-      paloaltonetworks.panos.panos_check:
-        provider: "{{ provider }}"
-      changed_when: false
-      register: result
-      until: result is not failed and result.msg == 'Device is ready.'
-      retries: 100
-      delay: 15
+
+    - name: Attempt to create a pre-existing object. This should show: as ok and no change.
+      paloaltonetworks.panos.panos_address_object:
+        provider: 
+          ip_address: "{{ palo_ip_address }}"
+          username: "{{ palo_username }}"
+          password: "{{ palo_password }}"
+        name: "Hacker 1"
+        address_type: 'ip-netmask'
+        value: 1.1.1.1
+      #when: pre_object_name | length == 0
+
+    # - name: Check if PAN-OS appliance is ready and wait until it is
+    #   paloaltonetworks.panos.panos_check:
+    #     provider: "{{ provider }}"
+    #   changed_when: false
+    #   register: result
+    #   until: result is not failed and result.msg == 'Device is ready.'
+    #   retries: 100
+    #   delay: 15
 
     - name: Display output
       ansible.builtin.set_stats:
