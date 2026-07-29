@@ -33,10 +33,11 @@
         task_result: >-
           {{
             my_job_results.json.results
+            | rejectattr('event_data.res', 'undefined')
             | selectattr('event_data.res.changed', 'equalto', true)
             | map(attribute='event_data.res')
           }}
-    #| rejectattr('event_data.res', 'undefined')
+    
     - name: Print Job results
       debug:
         var: task_result 
